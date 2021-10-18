@@ -4,6 +4,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UnionPatcher.Gui", "UnionPa
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UnionPatcher.Gui.Windows", "UnionPatcher.Gui.Windows\UnionPatcher.Gui.Windows.csproj", "{5F8CDEA2-B483-40D1-B1FB-EF8EC667185A}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UnionPatcher.Gui.Linux", "UnionPatcher.Gui.Linux\UnionPatcher.Gui.Linux.csproj", "{55DFA962-3EC5-44E4-9F93-FACF3E7EEBB2}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -18,5 +20,9 @@ Global
 		{5F8CDEA2-B483-40D1-B1FB-EF8EC667185A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{5F8CDEA2-B483-40D1-B1FB-EF8EC667185A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{5F8CDEA2-B483-40D1-B1FB-EF8EC667185A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{55DFA962-3EC5-44E4-9F93-FACF3E7EEBB2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{55DFA962-3EC5-44E4-9F93-FACF3E7EEBB2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{55DFA962-3EC5-44E4-9F93-FACF3E7EEBB2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{55DFA962-3EC5-44E4-9F93-FACF3E7EEBB2}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal

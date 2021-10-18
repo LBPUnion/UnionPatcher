@@ -1,6 +1,4 @@
-﻿using Eto.Forms;
-
-namespace UnionPatcher.Gui.Windows {
+﻿namespace UnionPatcher.Gui.Linux {
     public static class Program {
         public static void Main(string[] args) {
             Gui.Show();

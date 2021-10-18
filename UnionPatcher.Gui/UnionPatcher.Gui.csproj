@@ -7,7 +7,6 @@
 
     <ItemGroup>
       <PackageReference Include="Eto.Forms" Version="2.5.11" />
-      <PackageReference Include="Eto.Platform.Gtk" Version="2.5.11" />
     </ItemGroup>
 
 </Project>

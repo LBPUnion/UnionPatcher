@@ -1,0 +1,16 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <OutputType>Exe</OutputType>
+        <TargetFramework>net5.0</TargetFramework>
+    </PropertyGroup>
+
+    <ItemGroup>
+      <PackageReference Include="Eto.Platform.Gtk" Version="2.5.11" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\UnionPatcher.Gui\UnionPatcher.Gui.csproj" />
+    </ItemGroup>
+
+</Project>
