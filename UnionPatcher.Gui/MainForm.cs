@@ -1,25 +1,88 @@
 using System;
 using System.Diagnostics;
+using Eto;
 using Eto.Drawing;
 using Eto.Forms;
 
 namespace UnionPatcher.Gui {
     public class MainForm : Form {
-        public static Control CreatePatchButton(int tabIndex = 0) {
+        private readonly FilePicker filePicker;
+        private readonly TextBox serverUrl;
+        private readonly FilePicker outputFileName;
+
+        public Dialog CreateOkDialog(string title, string errorMessage) {
+            DynamicLayout layout = new();
+            Button button;
+
+            layout.Spacing = new Size(5, 5);
+            layout.MinimumSize = new Size(350, 100);
+
+            layout.BeginHorizontal();
+            layout.Add(new Label {
+                Text = errorMessage,
+            });
+            
+            layout.BeginHorizontal();
+            layout.BeginVertical();
+            layout.Add(null);
+            layout.Add(button = new Button {
+                Text = "OK",
+            });
+            
+            layout.EndVertical();
+            layout.EndHorizontal();
+            layout.EndHorizontal();
+
+            Dialog dialog = new() {
+                Content = layout,
+                Padding = new Padding(10, 10, 10, 10),
+                Title = title,
+            };
+
+            button.Click += delegate {
+                dialog.Close();
+            };
+            
+            return dialog;
+        }
+        
+        public Control CreatePatchButton(int tabIndex = 0) {
             Button control = new() {
                 Text = "Patch!",
                 TabIndex = tabIndex,
             };
 
             control.Click += delegate {
-                Console.WriteLine("patch button clicked");
-//                Program.Test();
+                if(string.IsNullOrEmpty(this.filePicker.FilePath)) {
+                    this.CreateOkDialog("Form Error", "No file specified!").ShowModal();
+                    return;
+                }
+
+                if(string.IsNullOrEmpty(this.serverUrl.Text)) {
+                    this.CreateOkDialog("Form Error", "No server URL specified!").ShowModal();
+                    return;
+                }
+
+                if(string.IsNullOrEmpty(this.outputFileName.FilePath)) {
+                    this.CreateOkDialog("Form Error", "No output file specified!").ShowModal();
+                    return;
+                }
+
+                try {
+                    Patcher.PatchFile(this.filePicker.FilePath, this.serverUrl.Text, this.outputFileName.FilePath);
+                }
+                catch(Exception e) {
+                    this.CreateOkDialog("Error occurred while patching", "An error occured while patching:\n" + e).ShowModal();
+                    return;
+                }
+
+                CreateOkDialog("Success!", "The Server URL has been patched to " + this.serverUrl.Text).ShowModal();
             };
 
             return control;
         }
 
-        public static Control CreateHelpButton(int tabIndex = 0) {
+        public Control CreateHelpButton(int tabIndex = 0) {
             Button control = new() {
                 Text = "Help",
                 TabIndex = tabIndex,
@@ -45,15 +108,15 @@ namespace UnionPatcher.Gui {
                 Rows = {
                     new TableRow(
                         new TableCell(new Label { Text = "EBOOT.elf: ", VerticalAlignment = VerticalAlignment.Center }),
-                        new TableCell(new FilePicker { TabIndex = 0 })
+                        new TableCell(filePicker = new FilePicker { TabIndex = 0 })
                     ),
                     new TableRow(
                         new TableCell(new Label { Text = "Server URL: ", VerticalAlignment = VerticalAlignment.Center }),
-                        new TableCell(new TextBox { TabIndex = 1 })
+                        new TableCell(serverUrl = new TextBox { TabIndex = 1 })
                     ),
                     new TableRow(
                         new TableCell(new Label { Text = "Output filename: ", VerticalAlignment = VerticalAlignment.Center }),
-                        new TableCell(new TextBox { TabIndex = 2 })
+                        new TableCell(this.outputFileName = new FilePicker { TabIndex = 2, FileAction = FileAction.SaveFile })
                     ),
                     new TableRow(
                         new TableCell(CreateHelpButton(4)),
