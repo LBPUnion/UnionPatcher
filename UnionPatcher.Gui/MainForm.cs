@@ -5,10 +5,10 @@ using Eto.Forms;
 
 namespace UnionPatcher.Gui {
     public class MainForm : Form {
-        public static Control CreatePatchButton() {
-            var control = new Button() {
+        public static Control CreatePatchButton(int tabIndex = 0) {
+            var control = new Button {
                 Text = "Patch!",
-                TabIndex = 3,
+                TabIndex = tabIndex,
             };
 
             control.Click += delegate {
@@ -18,10 +18,10 @@ namespace UnionPatcher.Gui {
             return control;
         }
 
-        public static Control CreateHelpButton() {
-            var control = new Button() {
+        public static Control CreateHelpButton(int tabIndex = 0) {
+            var control = new Button {
                 Text = "Help",
-                TabIndex = 4,
+                TabIndex = tabIndex,
             };
             
             control.Click += delegate {
@@ -55,8 +55,8 @@ namespace UnionPatcher.Gui {
                         new TableCell(new TextBox { TabIndex = 2 })
                     ),
                     new TableRow(
-                        new TableCell(CreateHelpButton()),
-                        new TableCell(CreatePatchButton())
+                        new TableCell(CreateHelpButton(4)),
+                        new TableCell(CreatePatchButton(3))
                     ),
                 },
             };
