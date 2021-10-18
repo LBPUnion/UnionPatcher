@@ -23,7 +23,8 @@ namespace UnionPatcher {
             using MemoryStream ms = new(data);
             using BinaryWriter writer = new(ms);
 
-            // using writer.Write(string) writes the length as a byte beforehand which is problematic
+            // using writer.Write(string) writes the length as a byte beforehand which is problematic because
+            // LBP uses null-terminated strings, not length-defined strings
             byte[] serverUrlAsBytes = Encoding.ASCII.GetBytes(serverUrl);
             
             foreach(string url in ToBePatched) {
