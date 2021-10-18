@@ -6,7 +6,7 @@ using Eto.Forms;
 namespace UnionPatcher.Gui {
     public class MainForm : Form {
         public static Control CreatePatchButton(int tabIndex = 0) {
-            var control = new Button {
+            Button control = new() {
                 Text = "Patch!",
                 TabIndex = tabIndex,
             };
@@ -19,13 +19,13 @@ namespace UnionPatcher.Gui {
         }
 
         public static Control CreateHelpButton(int tabIndex = 0) {
-            var control = new Button {
+            Button control = new() {
                 Text = "Help",
                 TabIndex = tabIndex,
             };
             
             control.Click += delegate {
-                var process = new Process();
+                Process process = new();
 
                 process.StartInfo.UseShellExecute = true;
                 process.StartInfo.FileName = "https://www.lbpunion.com";

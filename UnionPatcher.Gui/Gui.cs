@@ -1,5 +1,4 @@
-﻿using System;
-using Eto.Forms;
+﻿using Eto.Forms;
 
 namespace UnionPatcher.Gui {
     public static class Gui {
