@@ -13,6 +13,7 @@ namespace UnionPatcher.Gui {
 
             control.Click += delegate {
                 Console.WriteLine("patch button clicked");
+//                Program.Test();
             };
 
             return control;

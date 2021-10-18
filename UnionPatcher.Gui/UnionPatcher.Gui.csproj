@@ -9,4 +9,8 @@
       <PackageReference Include="Eto.Forms" Version="2.5.11" />
     </ItemGroup>
 
+    <ItemGroup>
+      <ProjectReference Include="..\UnionPatcher\UnionPatcher.csproj" />
+    </ItemGroup>
+
 </Project>

@@ -6,6 +6,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UnionPatcher.Gui.Windows", 
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UnionPatcher.Gui.Linux", "UnionPatcher.Gui.Linux\UnionPatcher.Gui.Linux.csproj", "{55DFA962-3EC5-44E4-9F93-FACF3E7EEBB2}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Gui", "Gui", "{59194212-45BB-4A27-A08F-54DB6ADA26B3}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UnionPatcher", "UnionPatcher\UnionPatcher.csproj", "{1CEC657B-5C05-44FB-941B-3C41411A7BB8}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -24,5 +28,14 @@ Global
 		{55DFA962-3EC5-44E4-9F93-FACF3E7EEBB2}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{55DFA962-3EC5-44E4-9F93-FACF3E7EEBB2}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{55DFA962-3EC5-44E4-9F93-FACF3E7EEBB2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1CEC657B-5C05-44FB-941B-3C41411A7BB8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1CEC657B-5C05-44FB-941B-3C41411A7BB8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1CEC657B-5C05-44FB-941B-3C41411A7BB8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1CEC657B-5C05-44FB-941B-3C41411A7BB8}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{235B4DEC-11A0-42EF-9B8D-16529869ED1A} = {59194212-45BB-4A27-A08F-54DB6ADA26B3}
+		{55DFA962-3EC5-44E4-9F93-FACF3E7EEBB2} = {59194212-45BB-4A27-A08F-54DB6ADA26B3}
+		{5F8CDEA2-B483-40D1-B1FB-EF8EC667185A} = {59194212-45BB-4A27-A08F-54DB6ADA26B3}
 	EndGlobalSection
 EndGlobal
