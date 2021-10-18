@@ -101,7 +101,7 @@ namespace UnionPatcher.Gui {
         
         public MainForm() {
             this.Title = "Union Patcher";
-            this.ClientSize = new Size(500, 160);
+            this.ClientSize = new Size(500, -1);
             this.Content = new TableLayout {
                 Spacing = new Size(5,5),
                 Padding = new Padding(10, 10, 10, 10),
