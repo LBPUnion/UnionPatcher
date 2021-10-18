@@ -17,12 +17,12 @@ namespace UnionPatcher {
         }
         
         public static void Main(string[] args) {
-            Patcher.PatchFile("EBOOT.elf", "https://lighthouse.lbpunion.com:10061/LITTLEBIGPLANETPS3_XML", "EBOOT.new.elf");
             if(args.Length < 3) {
                 PrintHelp();
                 return;
             }
             
+            Patcher.PatchFile(args[0], args[1], args[2]);
         }
 
         public static void PrintHelp() {
