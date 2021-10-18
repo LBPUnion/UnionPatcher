@@ -23,6 +23,7 @@ namespace UnionPatcher {
             }
             
             Patcher.PatchFile(args[0], args[1], args[2]);
+            Console.WriteLine($"Successfully patched Server URL to {args[1]}.");
         }
 
         public static void PrintHelp() {

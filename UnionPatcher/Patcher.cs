@@ -14,6 +14,10 @@ namespace UnionPatcher {
         }
         
         public static byte[] PatchData(byte[] data, string serverUrl) {
+            if(serverUrl.EndsWith('/')) {
+                throw new ArgumentException("URL must not contain a trailing slash!");
+            }
+            
             string dataAsString = Encoding.ASCII.GetString(data);
 
             using MemoryStream ms = new(data);
