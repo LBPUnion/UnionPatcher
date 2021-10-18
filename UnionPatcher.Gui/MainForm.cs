@@ -1,8 +1,40 @@
+using System;
+using System.Diagnostics;
 using Eto.Drawing;
 using Eto.Forms;
 
 namespace UnionPatcher.Gui {
     public class MainForm : Form {
+        public static Control CreatePatchButton() {
+            var control = new Button() {
+                Text = "Patch!",
+                TabIndex = 3,
+            };
+
+            control.Click += delegate {
+                Console.WriteLine("patch button clicked");
+            };
+
+            return control;
+        }
+
+        public static Control CreateHelpButton() {
+            var control = new Button() {
+                Text = "Help",
+                TabIndex = 4,
+            };
+            
+            control.Click += delegate {
+                var process = new Process();
+
+                process.StartInfo.UseShellExecute = true;
+                process.StartInfo.FileName = "https://www.lbpunion.com";
+                process.Start();
+            };
+
+            return control;
+        }
+        
         public MainForm() {
             this.Title = "Union Patcher";
             this.ClientSize = new Size(500, 160);
@@ -12,19 +44,19 @@ namespace UnionPatcher.Gui {
                 Rows = {
                     new TableRow(
                         new TableCell(new Label { Text = "EBOOT.elf: ", VerticalAlignment = VerticalAlignment.Center }),
-                        new TableCell(new FilePicker())
+                        new TableCell(new FilePicker { TabIndex = 0 })
                     ),
                     new TableRow(
                         new TableCell(new Label { Text = "Server URL: ", VerticalAlignment = VerticalAlignment.Center }),
-                        new TableCell(new TextBox())
+                        new TableCell(new TextBox { TabIndex = 1 })
                     ),
                     new TableRow(
                         new TableCell(new Label { Text = "Output filename: ", VerticalAlignment = VerticalAlignment.Center }),
-                        new TableCell(new TextBox())
+                        new TableCell(new TextBox { TabIndex = 2 })
                     ),
                     new TableRow(
-                        new TableCell(new Button { Text = "Help" }),
-                        new TableCell(new Button { Text = "Patch!" })
+                        new TableCell(CreateHelpButton()),
+                        new TableCell(CreatePatchButton())
                     ),
                 },
             };
