@@ -48,7 +48,7 @@ namespace UnionPatcher.Gui {
         
         public Control CreatePatchButton(int tabIndex = 0) {
             Button control = new() {
-                Text = "Patch!",
+                Text = EasterEgg.Restitch ? "Restitch!" : "Patch!",
                 TabIndex = tabIndex,
             };
 
@@ -100,7 +100,7 @@ namespace UnionPatcher.Gui {
         }
         
         public MainForm() {
-            this.Title = "Union Patcher";
+            this.Title = EasterEgg.Restitch ? "Union Restitcher" : "Union Patcher";
             this.ClientSize = new Size(500, -1);
             this.Content = new TableLayout {
                 Spacing = new Size(5,5),
