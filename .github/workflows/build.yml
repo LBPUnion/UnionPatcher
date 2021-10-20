@@ -6,14 +6,10 @@ name: Continuous Integration
 
 jobs:
   test:
-    name: Build
+    name: Build for Linux
     if: "!contains(github.event.head_commit.message, '[skip ci]')"
     runs-on: ubuntu-latest
     timeout-minutes: 10
-    env:
-      DB_DATABASE: lighthouse
-      DB_USER: root
-      DB_PASSWORD: lighthouse
     steps:
       - name: Cancel previous runs of this workflow
         uses: styfle/cancel-workflow-action@0.6.0
@@ -29,7 +25,7 @@ jobs:
           dotnet-version: "5.0.x"
           
       - name: Compile
-        run: dotnet build -c Release
+        run: dotnet publish
         
       - uses: actions/upload-artifact@v2
         with:
