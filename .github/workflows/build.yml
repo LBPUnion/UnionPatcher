@@ -6,7 +6,7 @@ name: Continuous Integration
 
 jobs:
   test:
-    name: Build for ${{ matrix.os.name }}
+    name: Build for ${{ matrix.os.prettyName }}
     if: "!contains(github.event.head_commit.message, '[skip ci]')"
     runs-on: ubuntu-latest
     timeout-minutes: 10
@@ -14,9 +14,9 @@ jobs:
       fail-fast: false
       matrix: 
         os:
-          - { name: Windows, platform: win-x64 }
-          - { name: Linux, platform: linux-x64 }
-          - { name: MacOS, platform: osx-x64 }
+          - { prettyName: Windows, configurationName: Windows, platform: win-x64 }
+          - { prettyName: Linux, configurationName: Linux, platform: linux-x64 }
+          - { prettyName: MacOS, configurationName: Release, platform: osx-x64 }
     steps:
       - name: Cancel previous runs of this workflow
         uses: styfle/cancel-workflow-action@0.6.0
@@ -31,10 +31,10 @@ jobs:
         with:
           dotnet-version: "5.0.x"
           
-      - name: Compile
-        run: dotnet publish -c ${{ matrix.os.name }} -r ${{ matrix.os.platform }} --self-contained
+      - name: Compile for ${{ matrix.os.prettyName }}
+        run: dotnet publish -c ${{ matrix.os.configurationName }}
         
       - uses: actions/upload-artifact@v2
         with:
-          name: UnionPatcher-${{ matrix.os.name }}
-          path: ${{ github.workspace }}/UnionPatcher.Gui.${{ matrix.os.name }}/bin
+          name: UnionPatcher-${{ matrix.os.prettyName }}
+          path: ${{ github.workspace }}/UnionPatcher.Gui.${{ matrix.os.prettyName }}/bin
