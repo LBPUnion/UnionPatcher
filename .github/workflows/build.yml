@@ -1,0 +1,37 @@
+on: [ push ]
+name: Continuous Integration
+
+# Inspired by Lighthouse's CI
+# https://github.com/LBPUnion/project-lighthouse/blob/main/.github/workflows/ci.yml
+
+jobs:
+  test:
+    name: Build & Test
+    if: "!contains(github.event.head_commit.message, '[skip ci]')"
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    env:
+      DB_DATABASE: lighthouse
+      DB_USER: root
+      DB_PASSWORD: lighthouse
+    steps:
+      - name: Cancel previous runs of this workflow
+        uses: styfle/cancel-workflow-action@0.6.0
+        with:
+          access_token: ${{ github.token }}
+
+      - name: Checkout
+        uses: actions/checkout@v2
+
+      - name: Install .NET 5.0
+        uses: actions/setup-dotnet@v1
+        with:
+          dotnet-version: "5.0.x"
+          
+      - name: Compile
+        run: dotnet build -c Release --project UnionPatcher.Gui.Linux
+        
+      - uses: actions/upload-artifact@v2
+        with:
+          name: UnionPatcher-Linux
+          path: ${{ github.workspace }}/UnionPatcher.Gui.Linux/bin
