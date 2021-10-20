@@ -16,7 +16,7 @@ jobs:
         os:
           - { prettyName: Windows, configurationName: Windows, platform: win-x64 }
           - { prettyName: Linux, configurationName: Linux, platform: linux-x64 }
-          - { prettyName: MacOS, configurationName: Release, platform: osx-x64 }
+#          - { prettyName: MacOS, configurationName: Release, platform: osx-x64 }
     steps:
       - name: Cancel previous runs of this workflow
         uses: styfle/cancel-workflow-action@0.6.0
