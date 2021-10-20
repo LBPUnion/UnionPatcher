@@ -32,7 +32,7 @@ jobs:
           dotnet-version: "5.0.x"
           
       - name: Compile
-        run: dotnet publish -c ${{ matrix.os.name }} -r ${{ matrix.os.platform }}
+        run: dotnet publish -c ${{ matrix.os.name }} -r ${{ matrix.os.platform }} --self-contained
         
       - uses: actions/upload-artifact@v2
         with:
