@@ -11,10 +11,11 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 10
     strategy:
+      fail-fast: false
       matrix: 
         os:
-          - Linux
           - Windows
+          - Linux
           - MacOS
     steps:
       - name: Cancel previous runs of this workflow
