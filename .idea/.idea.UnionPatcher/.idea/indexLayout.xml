@@ -2,7 +2,15 @@
 <project version="4">
   <component name="UserContentModel">
     <attachedFolders />
-    <explicitIncludes />
+    <explicitIncludes>
+      <Path>.github</Path>
+      <Path>.gitignore</Path>
+      <Path>LICENSE</Path>
+      <Path>README.md</Path>
+      <Path>UnionPatcher.sln.DotSettings</Path>
+      <Path>UnionPatcher.sln.DotSettings.user</Path>
+      <Path>global.json</Path>
+    </explicitIncludes>
     <explicitExcludes />
   </component>
 </project>

@@ -25,7 +25,7 @@ jobs:
           dotnet-version: "5.0.x"
           
       - name: Compile
-        run: dotnet publish
+        run: dotnet publish -c Linux
         
       - uses: actions/upload-artifact@v2
         with:
