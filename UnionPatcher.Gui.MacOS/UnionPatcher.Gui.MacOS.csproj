@@ -7,8 +7,9 @@
     </PropertyGroup>
 
     <ItemGroup>
-      <ProjectReference Include="..\UnionPatcher.Gui\UnionPatcher.Gui.csproj" />
-        <ValidateExecutableReferencesMatchSelfContained>false</ValidateExecutableReferencesMatchSelfContained>
+        <ProjectReference Include="..\UnionPatcher.Gui\UnionPatcher.Gui.csproj">
+            <ValidateExecutableReferencesMatchSelfContained>false</ValidateExecutableReferencesMatchSelfContained>
+        </ProjectReference>
     </ItemGroup>
 
     <ItemGroup>
