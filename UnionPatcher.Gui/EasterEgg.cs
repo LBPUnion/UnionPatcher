@@ -1,6 +1,6 @@
 using System;
 
-namespace UnionPatcher.Gui {
+namespace LBPUnion.UnionPatcher.Gui {
     public static class EasterEgg {
         private static bool? restitch = null;
 

@@ -2,7 +2,7 @@
 using System.Diagnostics;
 using System.IO;
 
-namespace UnionPatcher {
+namespace LBPUnion.UnionPatcher {
     public static class Program {
         public const string Version = "1.0";
 

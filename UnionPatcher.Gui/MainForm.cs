@@ -4,7 +4,7 @@ using Eto;
 using Eto.Drawing;
 using Eto.Forms;
 
-namespace UnionPatcher.Gui {
+namespace LBPUnion.UnionPatcher.Gui {
     public class MainForm : Form {
         private readonly FilePicker filePicker;
         private readonly TextBox serverUrl;
@@ -76,7 +76,7 @@ namespace UnionPatcher.Gui {
                     return;
                 }
 
-                CreateOkDialog("Success!", "The Server URL has been patched to " + this.serverUrl.Text).ShowModal();
+                this.CreateOkDialog("Success!", "The Server URL has been patched to " + this.serverUrl.Text).ShowModal();
             };
 
             return control;
@@ -108,19 +108,19 @@ namespace UnionPatcher.Gui {
                 Rows = {
                     new TableRow(
                         new TableCell(new Label { Text = "EBOOT.elf: ", VerticalAlignment = VerticalAlignment.Center }),
-                        new TableCell(filePicker = new FilePicker { TabIndex = 0 })
+                        new TableCell(this.filePicker = new FilePicker { TabIndex = 0 })
                     ),
                     new TableRow(
                         new TableCell(new Label { Text = "Server URL: ", VerticalAlignment = VerticalAlignment.Center }),
-                        new TableCell(serverUrl = new TextBox { TabIndex = 1 })
+                        new TableCell(this.serverUrl = new TextBox { TabIndex = 1 })
                     ),
                     new TableRow(
                         new TableCell(new Label { Text = "Output filename: ", VerticalAlignment = VerticalAlignment.Center }),
                         new TableCell(this.outputFileName = new FilePicker { TabIndex = 2, FileAction = FileAction.SaveFile })
                     ),
                     new TableRow(
-                        new TableCell(CreateHelpButton(4)),
-                        new TableCell(CreatePatchButton(3))
+                        new TableCell(this.CreateHelpButton(4)),
+                        new TableCell(this.CreatePatchButton(3))
                     ),
                 },
             };

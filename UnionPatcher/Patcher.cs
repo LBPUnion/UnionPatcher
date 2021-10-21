@@ -2,7 +2,7 @@ using System;
 using System.IO;
 using System.Text;
 
-namespace UnionPatcher {
+namespace LBPUnion.UnionPatcher {
     public static class Patcher {
         private static readonly string[] ToBePatched = {
             "https://littlebigplanetps3.online.scee.com:10061/LITTLEBIGPLANETPS3_XML",

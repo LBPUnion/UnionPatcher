@@ -2,7 +2,8 @@
 
     <PropertyGroup>
         <TargetFramework>net5.0</TargetFramework>
-        <RootNamespace>UnionPatcher.Gui</RootNamespace>
+        <RootNamespace>LBPUnion.UnionPatcher.Gui</RootNamespace>
+        <AssemblyName>LBPUnion.UnionPatcher.Gui</AssemblyName>
     </PropertyGroup>
 
     <ItemGroup>

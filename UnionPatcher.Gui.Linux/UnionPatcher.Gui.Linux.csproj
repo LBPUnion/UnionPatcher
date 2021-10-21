@@ -3,6 +3,8 @@
     <PropertyGroup>
         <OutputType>Exe</OutputType>
         <TargetFramework>net5.0</TargetFramework>
+        <AssemblyName>LBPUnion.UnionPatcher.Gui.Linux</AssemblyName>
+        <RootNamespace>LBPUnion.UnionPatcher.Gui.Linux</RootNamespace>
     </PropertyGroup>
 
     <ItemGroup>
