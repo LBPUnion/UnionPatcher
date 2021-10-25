@@ -7,6 +7,8 @@ namespace LBPUnion.UnionPatcher {
         private static readonly string[] ToBePatched = {
             "https://littlebigplanetps3.online.scee.com:10061/LITTLEBIGPLANETPS3_XML",
             "http://littlebigplanetps3.online.scee.com:10060/LITTLEBIGPLANETPS3_XML",
+            "http://live.littlebigplanetps3.online.scee.com:10060/LITTLEBIGPLANETPS3_XML",
+            "http://presence.littlebigplanetps3.online.scee.com:10060/LITTLEBIGPLANETPS3_XML",
         };
         
         public static void PatchFile(string fileName, string serverUrl, string outputFileName) {
@@ -34,7 +36,7 @@ namespace LBPUnion.UnionPatcher {
                 
                 int offset = dataAsString.IndexOf(url, StringComparison.Ordinal);
                 if(offset < 1) {
-                    Console.WriteLine($"URL {url} not found!");
+                    Console.WriteLine($"WARNING: URL {url} not found!");
                     continue;
                 }
 
