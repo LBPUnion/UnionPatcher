@@ -32,9 +32,9 @@ jobs:
           dotnet-version: "5.0.x"
           
       - name: Compile for ${{ matrix.os.prettyName }}
-        run: dotnet publish -c ${{ matrix.os.configurationName }} -r win10-x64
+        run: dotnet publish -c ${{ matrix.os.configurationName }} -r ${{ matrix.os.platform }}
         
       - uses: actions/upload-artifact@v2
         with:
           name: UnionPatcher-${{ matrix.os.prettyName }}
-          path: ${{ github.workspace }}/UnionPatcher.Gui.${{ matrix.os.prettyName }}/bin
+          path: ${{ github.workspace }}/UnionPatcher.Gui.${{ matrix.os.prettyName }}/bin/Release/net5.0/${{ matrix.os.platform }}/publish

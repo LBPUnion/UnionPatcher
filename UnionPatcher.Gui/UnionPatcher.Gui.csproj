@@ -1,9 +1,17 @@
 <Project Sdk="Microsoft.NET.Sdk">
-
     <PropertyGroup>
-        <TargetFramework>net5.0</TargetFramework>
         <RootNamespace>LBPUnion.UnionPatcher.Gui</RootNamespace>
         <AssemblyName>LBPUnion.UnionPatcher.Gui</AssemblyName>
+        <Configurations>Debug;Release;Windows</Configurations>
+        <Platforms>AnyCPU</Platforms>
+    </PropertyGroup>
+    
+    <PropertyGroup Condition=" '$(Configuration)' != 'Windows' ">
+        <TargetFramework>net5.0</TargetFramework>
+    </PropertyGroup>
+    
+    <PropertyGroup Condition=" '$(Configuration)' == 'Windows' ">
+        <TargetFramework>net5.0-windows</TargetFramework>
     </PropertyGroup>
 
     <ItemGroup>
@@ -13,5 +21,4 @@
     <ItemGroup>
       <ProjectReference Include="..\UnionPatcher\UnionPatcher.csproj" />
     </ItemGroup>
-
 </Project>
