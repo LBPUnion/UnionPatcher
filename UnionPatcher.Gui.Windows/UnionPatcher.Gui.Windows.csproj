@@ -6,8 +6,6 @@
         <RootNamespace>LBPUnion.UnionPatcher.Gui.Windows</RootNamespace>
         <AssemblyName>LBPUnion.UnionPatcher.Gui.Windows</AssemblyName>
         <RuntimeIdentifier>win-x64</RuntimeIdentifier>
-        <PublishSingleFile>true</PublishSingleFile>
-        <PublishReadyToRun>true</PublishReadyToRun>
     </PropertyGroup>
 
     <ItemGroup>
