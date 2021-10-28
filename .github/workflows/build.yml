@@ -37,4 +37,4 @@ jobs:
       - uses: actions/upload-artifact@v2
         with:
           name: UnionPatcher-${{ matrix.os.prettyName }}
-          path: ${{ github.workspace }}/UnionPatcher.Gui.${{ matrix.os.prettyName }}/bin/Release/net5.0/${{ matrix.os.platform }}/publish
+          path: ${{ github.workspace }}/UnionPatcher.Gui.${{ matrix.os.prettyName }}/bin/Release/net5.0/
