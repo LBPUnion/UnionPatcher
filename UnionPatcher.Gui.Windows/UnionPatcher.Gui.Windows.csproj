@@ -3,9 +3,9 @@
     <PropertyGroup>
         <OutputType>WinExe</OutputType>
         <TargetFramework>net5.0-windows</TargetFramework>
-        <RuntimeIdentifiers>win-x64</RuntimeIdentifiers>
         <RootNamespace>LBPUnion.UnionPatcher.Gui.Windows</RootNamespace>
         <AssemblyName>LBPUnion.UnionPatcher.Gui.Windows</AssemblyName>
+        <RuntimeIdentifier>win-x64</RuntimeIdentifier>
         <PublishSingleFile>true</PublishSingleFile>
         <SelfContained>true</SelfContained>
         <PublishReadyToRun>true</PublishReadyToRun>
