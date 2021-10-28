@@ -15,7 +15,7 @@ jobs:
       matrix: 
         os:
           - { prettyName: Windows, configurationName: Windows, extraArgs: "-r win-x64", buildPath: "Release/net5.0-windows/win-x64/publish"}
-          - { prettyName: Linux, configurationName: Linux, extraArgs: "", buildPath: "Release/"}
+          - { prettyName: Linux, configurationName: Linux, extraArgs: "", buildPath: "Release/net5.0/publish"}
 #          - { prettyName: MacOS, configurationName: Release, platform: osx-x64 }
     steps:
       - name: Cancel previous runs of this workflow
