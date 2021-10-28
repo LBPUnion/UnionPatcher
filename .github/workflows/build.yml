@@ -14,8 +14,8 @@ jobs:
       fail-fast: false
       matrix: 
         os:
-          - { prettyName: Windows, configurationName: Windows, platform: win-x64 }
-          - { prettyName: Linux, configurationName: Linux, platform: linux-x64 }
+          - { prettyName: Windows, configurationName: Windows, extraArgs: "-r win-x64" }
+          - { prettyName: Linux, configurationName: Linux, extraArgs: "" }
 #          - { prettyName: MacOS, configurationName: Release, platform: osx-x64 }
     steps:
       - name: Cancel previous runs of this workflow
@@ -32,7 +32,7 @@ jobs:
           dotnet-version: "5.0.x"
           
       - name: Compile for ${{ matrix.os.prettyName }}
-        run: dotnet publish -c ${{ matrix.os.configurationName }} -r ${{ matrix.os.platform }}
+        run: dotnet publish -c ${{ matrix.os.configurationName }} ${{ matrix.os.extraArgs }}
         
       - uses: actions/upload-artifact@v2
         with:
