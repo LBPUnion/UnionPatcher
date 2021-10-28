@@ -14,8 +14,8 @@ jobs:
       fail-fast: false
       matrix: 
         os:
-          - { prettyName: Windows, configurationName: Windows, extraArgs: "-r win-x64" }
-          - { prettyName: Linux, configurationName: Linux, extraArgs: "" }
+          - { prettyName: Windows, configurationName: Windows, extraArgs: "-r win-x64", buildPath: "Release/net5.0-windows/win-x64/publish"}
+          - { prettyName: Linux, configurationName: Linux, extraArgs: "", buildPath: "Release/"}
 #          - { prettyName: MacOS, configurationName: Release, platform: osx-x64 }
     steps:
       - name: Cancel previous runs of this workflow
@@ -37,4 +37,4 @@ jobs:
       - uses: actions/upload-artifact@v2
         with:
           name: UnionPatcher-${{ matrix.os.prettyName }}
-          path: ${{ github.workspace }}/UnionPatcher.Gui.${{ matrix.os.prettyName }}/bin/
+          path: ${{ github.workspace }}/UnionPatcher.Gui.${{ matrix.os.prettyName }}/bin/${{ matrix.os.buildPath }}
