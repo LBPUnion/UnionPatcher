@@ -7,7 +7,6 @@
         <AssemblyName>LBPUnion.UnionPatcher.Gui.Windows</AssemblyName>
         <RuntimeIdentifier>win-x64</RuntimeIdentifier>
         <PublishSingleFile>true</PublishSingleFile>
-        <SelfContained>true</SelfContained>
         <PublishReadyToRun>true</PublishReadyToRun>
     </PropertyGroup>
 
