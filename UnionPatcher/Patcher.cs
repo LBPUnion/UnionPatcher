@@ -9,6 +9,8 @@ namespace LBPUnion.UnionPatcher {
             "http://littlebigplanetps3.online.scee.com:10060/LITTLEBIGPLANETPS3_XML",
             "http://live.littlebigplanetps3.online.scee.com:10060/LITTLEBIGPLANETPS3_XML",
             "http://presence.littlebigplanetps3.online.scee.com:10060/LITTLEBIGPLANETPS3_XML",
+            "http://lbppsp.online.scee.com:10060/LITTLEBIGPLANETPSP_XML",
+            "https://lbppsp.online.scee.com:10061/LITTLEBIGPLANETPSP_XML"
         };
         
         public static void PatchFile(string fileName, string serverUrl, string outputFileName) {
