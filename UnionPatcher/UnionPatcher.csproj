@@ -8,12 +8,12 @@
 
     <PropertyGroup Condition=" '$(Configuration)' != 'Windows' ">
         <OutputType>Exe</OutputType>
-        <TargetFramework>net5.0</TargetFramework>
+        <TargetFramework>net6.0</TargetFramework>
     </PropertyGroup>
     
     <PropertyGroup Condition=" '$(Configuration)' == 'Windows' ">
         <OutputType>WinExe</OutputType>
-        <TargetFramework>net5.0-windows</TargetFramework>
+        <TargetFramework>net6.0-windows</TargetFramework>
         <AssemblyName>LBPUnion.UnionPatcher</AssemblyName>
         <RootNamespace>LBPUnion.UnionPatcher</RootNamespace>
         <SelfContained>true</SelfContained>

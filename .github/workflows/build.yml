@@ -14,8 +14,8 @@ jobs:
       fail-fast: false
       matrix: 
         os:
-          - { prettyName: Windows, configurationName: Windows, extraArgs: "-r win-x64", buildPath: "Release/net5.0-windows/win-x64/publish"}
-          - { prettyName: Linux, configurationName: Linux, extraArgs: "", buildPath: "Release/net5.0/publish"}
+          - { prettyName: Windows, configurationName: Windows, extraArgs: "-r win-x64", buildPath: "Release/net6.0-windows/win-x64/publish"}
+          - { prettyName: Linux, configurationName: Linux, extraArgs: "", buildPath: "Release/net6.0/publish"}
 #          - { prettyName: MacOS, configurationName: Release, platform: osx-x64 }
     steps:
       - name: Cancel previous runs of this workflow
@@ -26,10 +26,10 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v2
 
-      - name: Install .NET 5.0
+      - name: Install .NET 6.0
         uses: actions/setup-dotnet@v1
         with:
-          dotnet-version: "5.0.x"
+          dotnet-version: "6.0.x"
           
       - name: Compile for ${{ matrix.os.prettyName }}
         run: dotnet publish -c ${{ matrix.os.configurationName }} ${{ matrix.os.extraArgs }}
