@@ -7,10 +7,21 @@ namespace LBPUnion.UnionPatcher {
         private static readonly string[] ToBePatched = {
             "https://littlebigplanetps3.online.scee.com:10061/LITTLEBIGPLANETPS3_XML",
             "http://littlebigplanetps3.online.scee.com:10060/LITTLEBIGPLANETPS3_XML",
+            // LittleBigPlanet 3-Specific URLs
             "http://live.littlebigplanetps3.online.scee.com:10060/LITTLEBIGPLANETPS3_XML",
             "http://presence.littlebigplanetps3.online.scee.com:10060/LITTLEBIGPLANETPS3_XML",
+            // LittleBigPlanet PSP URLs
             "http://lbppsp.online.scee.com:10060/LITTLEBIGPLANETPSP_XML",
-            "https://lbppsp.online.scee.com:10061/LITTLEBIGPLANETPSP_XML"
+            "https://lbppsp.online.scee.com:10061/LITTLEBIGPLANETPSP_XML",
+            // LittleBigPlanet Beta URLs
+            "http://littlebigplanetps3-beta.online.scee.com:10060/LITTLEBIGPLANETPS3_XML",
+            "https://littlebigplanetps3-beta.online.scee.com:10061/LITTLEBIGPLANETPS3_XML",
+            // LittleBigPlanet Vita URLs
+            "http://lbpvita.online.scee.com:10060/LITTLEBIGPLANETPS3_XML",
+            "https://lbpvita.online.scee.com:10061/LITTLEBIGPLANETPS3_XML",
+            // LittleBigPlanet Vita Beta URLs
+            "http://lbpvita-beta.online.scee.com:10060/LITTLEBIGPLANETPS3_XML",
+            "https://lbpvita-beta.online.scee.com:10061/LITTLEBIGPLANETPS3_XML",
         };
         
         public static void PatchFile(string fileName, string serverUrl, string outputFileName) {
@@ -18,6 +29,10 @@ namespace LBPUnion.UnionPatcher {
         }
         
         public static byte[] PatchData(byte[] data, string serverUrl) {
+            Console.WriteLine("NOTICE: As Union Patcher is still a work in progress, the patching method is not refined. " +
+                              "Due to this, it may show that URLS are not found. These can be safely ignored." +
+                              "Please check the EBOOT manually in a hex editor to make sure your specified url has been" +
+                              "added properly. Thank you");
             if(serverUrl.EndsWith('/')) {
                 throw new ArgumentException("URL must not contain a trailing slash!");
             }
