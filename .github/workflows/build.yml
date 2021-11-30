@@ -15,8 +15,8 @@ jobs:
       matrix: 
         os:
           - { prettyName: Windows, platform: windows-latest, configurationName: Windows, extraArgs: "-r win-x64 --self-contained", buildPath: "Release/net6.0-windows/win-x64/publish"}
-          - { prettyName: Linux, platform: linux-latest, configurationName: Linux, extraArgs: "", buildPath: "Release/net6.0/publish"}
-#          - { prettyName: MacOS, platform: linux-latest, configurationName: Release, platform: osx-x64 }
+          - { prettyName: Linux, platform: ubuntu-latest, configurationName: Linux, extraArgs: "", buildPath: "Release/net6.0/publish"}
+#          - { prettyName: MacOS, platform: ubuntu-latest, configurationName: Release, platform: osx-x64 }
     steps:
       - name: Cancel previous runs of this workflow
         uses: styfle/cancel-workflow-action@0.6.0
