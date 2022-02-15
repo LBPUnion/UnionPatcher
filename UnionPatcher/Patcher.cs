@@ -13,7 +13,10 @@ namespace LBPUnion.UnionPatcher {
             // LittleBigPlanet PSP URLs
             "http://lbppsp.online.scee.com:10060/LITTLEBIGPLANETPSP_XML",
             "https://lbppsp.online.scee.com:10061/LITTLEBIGPLANETPSP_XML",
-            // LittleBigPlanet Beta URLs
+            // LittleBigPlanet 2 Beta URLs
+            "http://lbp2ps3-beta.online.scee.com:10060/LITTLEBIGPLANETPS3_XML"
+            "https://lbp2ps3-beta.online.scee.com:10061/LITTLEBIGPLANETPS3_XML"
+            // LittleBigPlanet (3?) Beta URLs
             "http://littlebigplanetps3-beta.online.scee.com:10060/LITTLEBIGPLANETPS3_XML",
             "https://littlebigplanetps3-beta.online.scee.com:10061/LITTLEBIGPLANETPS3_XML",
             // LittleBigPlanet Vita URLs
