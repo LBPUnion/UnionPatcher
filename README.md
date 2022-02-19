@@ -8,7 +8,9 @@ A commandline tool that will take the official EBOOT of a LittleBIGPlanet title 
 * Basic commandline knowledge
 
 ## Getting the latest build
-Access the [CI builds for UnionPatcher](https://github.com/LBPUnion/UnionPatcher/actions), then, in the "workflow runs" grid, select the first in the list with a green check mark (✔️). Scroll to the bottom of this build and find the correct zip for your platform
+1. Access the [CI builds for UnionPatcher](https://github.com/LBPUnion/UnionPatcher/actions)
+2. In the "workflow runs" grid, select the first in the list with a green check mark (✔️)
+3. Scroll to the bottom of this build and find the correct zip for your platform
 
 ## Building manually (Required for MacOS)
 You will need the [.NET 6 SDK](https://dotnet.microsoft.com/en-us/download/dotnet/6.0)
