@@ -72,17 +72,17 @@ namespace LBPUnion.UnionPatcher.Gui {
                 ElfFile eboot = new(this.filePicker.FilePath);
 
                 if(eboot.IsValid == false) {
-                    this.CreateOkDialog("Eboot Error", $"{eboot.Name} is not a valid ELF file (magic number mismatch)\nThe EBOOT must be decrypted before using this tool").ShowModal();
+                    this.CreateOkDialog("EBOOT Error", $"{eboot.Name} is not a valid ELF file (magic number mismatch)\nThe EBOOT must be decrypted before using this tool").ShowModal();
                     return;
                 }
 
                 if(eboot.Is64Bit == null) {
-                    this.CreateOkDialog("Eboot Error", $"{eboot.Name} does not target a valid system").ShowModal();
+                    this.CreateOkDialog("EBOOT Error", $"{eboot.Name} does not target a valid system").ShowModal();
                     return;
                 }
 
                 if(string.IsNullOrWhiteSpace(eboot.Architecture)) {
-                    this.CreateOkDialog("Eboot Error", $"{eboot.Name} does not target a valid architecture (PowerPC or ARM)").ShowModal();
+                    this.CreateOkDialog("EBOOT Error", $"{eboot.Name} does not target a valid architecture (PowerPC or ARM)").ShowModal();
                     return;
                 }
 

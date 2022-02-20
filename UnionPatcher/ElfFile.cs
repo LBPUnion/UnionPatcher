@@ -27,7 +27,7 @@ namespace LBPUnion.UnionPatcher {
 
         public string Name { get; } = "Binary Blob";
 
-        public bool IsValid { get; }
+        public bool IsValid { get; } = false;
         public bool? Is64Bit { get; } = null;
         public bool? IsBigEndian { get; } = null;
         public string Architecture { get; } = null;
@@ -35,10 +35,8 @@ namespace LBPUnion.UnionPatcher {
         public byte[] Contents { get; } = null;
 
         public ElfFile(byte[] fileContents) {
-			if(fileContents.length < 52) {
-				IsValid = false;
+			if(fileContents.Length < 52)
 				return;
-			}
 
             IsValid = fileContents[0x00..0x04].SequenceEqual(new byte[] {0x7F, (byte)'E', (byte)'L', (byte)'F'});
             if(!IsValid) return;
