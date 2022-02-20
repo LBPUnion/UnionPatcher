@@ -71,20 +71,20 @@ namespace LBPUnion.UnionPatcher.Gui {
 
                 ElfFile eboot = new(this.filePicker.FilePath);
 
-				if(eboot.IsValid == false) {
-					this.CreateOkDialog("Eboot Error", $"{eboot.Name} is not a valid ELF file (magic number mismatch)").ShowModal();
-					return;
-				}
+                if(eboot.IsValid == false) {
+                    this.CreateOkDialog("Eboot Error", $"{eboot.Name} is not a valid ELF file (magic number mismatch)").ShowModal();
+                    return;
+                }
 
-				if(eboot.Is64Bit == null) {
-					this.CreateOkDialog("Eboot Error", $"{eboot.Name} does not target a valid system").ShowModal();
-					return;
-				}
+                if(eboot.Is64Bit == null) {
+                    this.CreateOkDialog("Eboot Error", $"{eboot.Name} does not target a valid system").ShowModal();
+                    return;
+                }
 
-				if(string.IsNullOrWhiteSpace(eboot.Architecture)) {
-					this.CreateOkDialog("Eboot Error", $"{eboot.Name} does not target a valid architecture (PowerPC or ARM)").ShowModal();
-					return;
-				}
+                if(string.IsNullOrWhiteSpace(eboot.Architecture)) {
+                    this.CreateOkDialog("Eboot Error", $"{eboot.Name} does not target a valid architecture (PowerPC or ARM)").ShowModal();
+                    return;
+                }
 
                 try {
                     Patcher.PatchFile(this.filePicker.FilePath, this.serverUrl.Text, this.outputFileName.FilePath);

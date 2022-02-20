@@ -25,21 +25,21 @@ namespace LBPUnion.UnionPatcher {
             ElfFile eboot = new(new FileInfo(args[0]));
 
             if(eboot.IsValid == false) {
-				Console.WriteLine($"{eboot.Name} is not a valid ELF file (magic number mismatch)");
-				return;
-			}
+                Console.WriteLine($"{eboot.Name} is not a valid ELF file (magic number mismatch)");
+                return;
+            }
 
-			if(eboot.Is64Bit == null) {
-				Console.WriteLine($"{eboot.Name} does not target a valid system");
-				return;
-			}
+            if(eboot.Is64Bit == null) {
+                Console.WriteLine($"{eboot.Name} does not target a valid system");
+                return;
+            }
 
-			if(string.IsNullOrWhiteSpace(eboot.Architecture)) {
-				Console.WriteLine($"{eboot.Name} does not target a valid architecture (PowerPC or ARM)");
-				return;
-			}
+            if(string.IsNullOrWhiteSpace(eboot.Architecture)) {
+                Console.WriteLine($"{eboot.Name} does not target a valid architecture (PowerPC or ARM)");
+                return;
+            }
 
-			Console.WriteLine($"{eboot.Name} targets {eboot.Architecture}");
+            Console.WriteLine($"{eboot.Name} targets {eboot.Architecture}");
 
             Patcher.PatchFile(args[0], args[1], args[2]);
             Console.WriteLine($"Successfully patched Server URL to {args[1]}.");
