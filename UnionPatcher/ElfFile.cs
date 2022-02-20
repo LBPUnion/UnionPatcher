@@ -35,8 +35,13 @@ namespace LBPUnion.UnionPatcher {
         public byte[] Contents { get; } = null;
 
         public ElfFile(byte[] fileContents) {
+			if(fileContents.length < 52) {
+				IsValid = false;
+				return;
+			}
+
             IsValid = fileContents[0x00..0x04].SequenceEqual(new byte[] {0x7F, (byte)'E', (byte)'L', (byte)'F'});
-            if(IsValid == false) return;
+            if(!IsValid) return;
 
             byte identClassValue = fileContents[0x04];
             byte identDataValue = fileContents[0x05];

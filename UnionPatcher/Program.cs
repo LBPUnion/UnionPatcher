@@ -24,8 +24,9 @@ namespace LBPUnion.UnionPatcher {
 
             ElfFile eboot = new(new FileInfo(args[0]));
 
-            if(eboot.IsValid == false) {
+            if(!eboot.IsValid) {
                 Console.WriteLine($"{eboot.Name} is not a valid ELF file (magic number mismatch)");
+                Console.WriteLine("The EBOOT must be decrypted before using this tool");
                 return;
             }
 

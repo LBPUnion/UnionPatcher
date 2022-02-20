@@ -72,7 +72,7 @@ namespace LBPUnion.UnionPatcher.Gui {
                 ElfFile eboot = new(this.filePicker.FilePath);
 
                 if(eboot.IsValid == false) {
-                    this.CreateOkDialog("Eboot Error", $"{eboot.Name} is not a valid ELF file (magic number mismatch)").ShowModal();
+                    this.CreateOkDialog("Eboot Error", $"{eboot.Name} is not a valid ELF file (magic number mismatch)\nThe EBOOT must be decrypted before using this tool").ShowModal();
                     return;
                 }
 
