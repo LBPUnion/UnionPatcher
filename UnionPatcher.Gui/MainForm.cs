@@ -1,4 +1,5 @@
 using System;
+using System.IO;
 using System.Diagnostics;
 using Eto;
 using Eto.Drawing;
@@ -21,14 +22,14 @@ namespace LBPUnion.UnionPatcher.Gui {
             layout.Add(new Label {
                 Text = errorMessage,
             });
-            
+
             layout.BeginHorizontal();
             layout.BeginVertical();
             layout.Add(null);
             layout.Add(button = new Button {
                 Text = "OK",
             });
-            
+
             layout.EndVertical();
             layout.EndHorizontal();
             layout.EndHorizontal();
@@ -42,10 +43,10 @@ namespace LBPUnion.UnionPatcher.Gui {
             button.Click += delegate {
                 dialog.Close();
             };
-            
+
             return dialog;
         }
-        
+
         public Control CreatePatchButton(int tabIndex = 0) {
             Button control = new() {
                 Text = EasterEgg.Restitch ? "Restitch!" : "Patch!",
@@ -53,20 +54,37 @@ namespace LBPUnion.UnionPatcher.Gui {
             };
 
             control.Click += delegate {
-                if(string.IsNullOrEmpty(this.filePicker.FilePath)) {
+                if(string.IsNullOrWhiteSpace(this.filePicker.FilePath)) {
                     this.CreateOkDialog("Form Error", "No file specified!").ShowModal();
                     return;
                 }
 
-                if(string.IsNullOrEmpty(this.serverUrl.Text)) {
+                if(string.IsNullOrWhiteSpace(this.serverUrl.Text)) {
                     this.CreateOkDialog("Form Error", "No server URL specified!").ShowModal();
                     return;
                 }
 
-                if(string.IsNullOrEmpty(this.outputFileName.FilePath)) {
+                if(string.IsNullOrWhiteSpace(this.outputFileName.FilePath)) {
                     this.CreateOkDialog("Form Error", "No output file specified!").ShowModal();
                     return;
                 }
+
+                ElfFile eboot = new(this.filePicker.FilePath);
+
+				if(eboot.IsValid == false) {
+					this.CreateOkDialog("Eboot Error", $"{eboot.Name} is not a valid ELF file (magic number mismatch)").ShowModal();
+					return;
+				}
+
+				if(eboot.Is64Bit == null) {
+					this.CreateOkDialog("Eboot Error", $"{eboot.Name} does not target a valid system").ShowModal();
+					return;
+				}
+
+				if(string.IsNullOrWhiteSpace(eboot.Architecture)) {
+					this.CreateOkDialog("Eboot Error", $"{eboot.Name} does not target a valid architecture (PowerPC or ARM)").ShowModal();
+					return;
+				}
 
                 try {
                     Patcher.PatchFile(this.filePicker.FilePath, this.serverUrl.Text, this.outputFileName.FilePath);
@@ -87,7 +105,7 @@ namespace LBPUnion.UnionPatcher.Gui {
                 Text = "Help",
                 TabIndex = tabIndex,
             };
-            
+
             control.Click += delegate {
                 Process process = new();
 
@@ -98,7 +116,7 @@ namespace LBPUnion.UnionPatcher.Gui {
 
             return control;
         }
-        
+
         public MainForm() {
             this.Title = EasterEgg.Restitch ? "Union Restitcher" : "Union Patcher";
             this.ClientSize = new Size(500, -1);
