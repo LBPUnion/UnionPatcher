@@ -10,7 +10,6 @@ namespace LBPUnion.UnionPatcher.Gui {
         private readonly FilePicker filePicker;
         private readonly TextBox serverUrl;
         private readonly FilePicker outputFileName;
-        private Uri uriResult;
         public Dialog CreateOkDialog(string title, string errorMessage) {
             DynamicLayout layout = new();
             Button button;
@@ -92,7 +91,7 @@ namespace LBPUnion.UnionPatcher.Gui {
                     return;
                 }
 
-                if (!Uri.TryCreate(this.serverUrl.Text, UriKind.Absolute, out uriResult))
+                if (!Uri.TryCreate(this.serverUrl.Text, UriKind.Absolute, out _))
                 {
                     this.CreateOkDialog("Form Error", "Server URL is invalid! Please enter a valid URL.").ShowModal();
                     return;
