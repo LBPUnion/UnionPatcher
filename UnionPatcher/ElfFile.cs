@@ -35,8 +35,8 @@ namespace LBPUnion.UnionPatcher {
         public byte[] Contents { get; } = null;
 
         public ElfFile(byte[] fileContents) {
-			if(fileContents.Length < 52)
-				return;
+            if(fileContents.Length < 52)
+                return;
 
             IsValid = fileContents[0x00..0x04].SequenceEqual(new byte[] {0x7F, (byte)'E', (byte)'L', (byte)'F'});
             if(!IsValid) return;
