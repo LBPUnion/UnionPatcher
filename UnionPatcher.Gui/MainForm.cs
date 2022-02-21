@@ -10,7 +10,7 @@ namespace LBPUnion.UnionPatcher.Gui {
         private readonly FilePicker filePicker;
         private readonly TextBox serverUrl;
         private readonly FilePicker outputFileName;
-
+        private Uri uriResult;
         public Dialog CreateOkDialog(string title, string errorMessage) {
             DynamicLayout layout = new();
             Button button;
@@ -83,6 +83,18 @@ namespace LBPUnion.UnionPatcher.Gui {
 
                 if(string.IsNullOrWhiteSpace(eboot.Architecture)) {
                     this.CreateOkDialog("EBOOT Error", $"{eboot.Name} does not target a valid architecture (PowerPC or ARM)").ShowModal();
+                    return;
+                }
+
+                if (this.filePicker.FilePath == this.outputFileName.FilePath)
+                {
+                    this.CreateOkDialog("Form Error", "Input and output filename are the same! Please save the patched file with a different name so you have a backup of your the original EBOOT.ELF.").ShowModal();
+                    return;
+                }
+
+                if (!Uri.TryCreate(this.serverUrl.Text, UriKind.Absolute, out uriResult))
+                {
+                    this.CreateOkDialog("Form Error", "Server URL is invalid! Please enter a valid URL.").ShowModal();
                     return;
                 }
 
