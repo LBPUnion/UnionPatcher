@@ -37,4 +37,4 @@ jobs:
       - uses: actions/upload-artifact@v2
         with:
           name: UnionPatcher-${{ matrix.os.prettyName }}
-          path: ${{ github.workspace }}/UnionPatcher.Gui.${{ matrix.os.prettyName }}/bin/${{ matrix.os.buildPath }}
+          path: ${{ github.workspace }}/UnionPatcher.UI.${{ matrix.os.prettyName }}/bin/${{ matrix.os.buildPath }}
