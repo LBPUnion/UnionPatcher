@@ -7,7 +7,6 @@
     </PropertyGroup>
 
     <PropertyGroup Condition=" '$(Configuration)' != 'Windows' ">
-        <OutputType>Exe</OutputType>
         <TargetFramework>net6.0</TargetFramework>
     </PropertyGroup>
     
