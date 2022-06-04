@@ -14,7 +14,7 @@ jobs:
       fail-fast: false
       matrix: 
         os:
-          - { prettyName: Windows, platform: windows-latest, configurationName: Windows, extraArgs: "-r win-x64 --self-contained", buildPath: "Release/net6.0-windows/win-x64/publish"}
+          - { prettyName: Windows, platform: windows-latest, configurationName: Windows, extraArgs: "", buildPath: "Release/net6.0-windows/publish"}
           - { prettyName: Linux, platform: ubuntu-latest, configurationName: Linux, extraArgs: "", buildPath: "Release/net6.0/publish"}
 #          - { prettyName: MacOS, platform: ubuntu-latest, configurationName: Release, platform: osx-x64 }
     steps:
