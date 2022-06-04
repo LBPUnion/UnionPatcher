@@ -3,18 +3,11 @@
         <AssemblyName>LBPUnion.UnionPatcher</AssemblyName>
         <RootNamespace>LBPUnion.UnionPatcher</RootNamespace>
         <Configurations>Debug;Release;Windows</Configurations>
-        <Platforms>AnyCPU</Platforms>
-    </PropertyGroup>
-
-    <PropertyGroup Condition=" '$(Configuration)' != 'Windows' ">
         <TargetFramework>net6.0</TargetFramework>
+        <Platforms>AnyCPU</Platforms>
     </PropertyGroup>
     
     <PropertyGroup Condition=" '$(Configuration)' == 'Windows' ">
-        <OutputType>WinExe</OutputType>
-        <TargetFramework>net6.0-windows</TargetFramework>
-        <AssemblyName>LBPUnion.UnionPatcher</AssemblyName>
-        <RootNamespace>LBPUnion.UnionPatcher</RootNamespace>
         <SelfContained>true</SelfContained>
         <RuntimeIdentifier>win-x64</RuntimeIdentifier>
     </PropertyGroup>

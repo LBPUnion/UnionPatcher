@@ -1,6 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="GitToolBoxProjectSettings">
+    <option name="autoFetchIntervalMinutesOverride">
+      <IntValueOverride>
+        <option name="enabled" value="true" />
+        <option name="value" value="15" />
+      </IntValueOverride>
+    </option>
     <option name="commitMessageIssueKeyValidationOverride">
       <BoolValueOverride>
         <option name="enabled" value="true" />
@@ -10,6 +16,11 @@
       <CommitMessageValidationOverride>
         <option name="enabled" value="true" />
       </CommitMessageValidationOverride>
+    </option>
+    <option name="commitMessageValidationEnabledOverride">
+      <BoolValueOverride>
+        <option name="enabled" value="true" />
+      </BoolValueOverride>
     </option>
   </component>
 </project>

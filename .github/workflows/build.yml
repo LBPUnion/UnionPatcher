@@ -18,11 +18,6 @@ jobs:
           - { prettyName: Linux, platform: ubuntu-latest, configurationName: Linux, extraArgs: "", buildPath: "Release/net6.0/publish"}
 #          - { prettyName: MacOS, platform: ubuntu-latest, configurationName: Release, platform: osx-x64 }
     steps:
-      - name: Cancel previous runs of this workflow
-        uses: styfle/cancel-workflow-action@0.6.0
-        with:
-          access_token: ${{ github.token }}
-
       - name: Checkout
         uses: actions/checkout@v2
 
@@ -37,4 +32,4 @@ jobs:
       - uses: actions/upload-artifact@v2
         with:
           name: UnionPatcher-${{ matrix.os.prettyName }}
-          path: ${{ github.workspace }}/UnionPatcher.UI.${{ matrix.os.prettyName }}/bin/${{ matrix.os.buildPath }}
+          path: ${{ github.workspace }}/UnionPatcher.Gui.${{ matrix.os.prettyName }}/bin/${{ matrix.os.buildPath }}
