@@ -10,19 +10,21 @@ Wikipedia entry on ELF: https://en.wikipedia.org/wiki/Executable_and_Linkable_Fo
 
 namespace LBPUnion.UnionPatcher {
     public class ElfFile {
+        internal const int MinimumSize = 52; 
+        
         private enum WordSize : byte {
             ThirtyTwoBits = 0x01,
-            SixtyFourBits = 0x02
+            SixtyFourBits = 0x02,
         }
 
         private enum Endianness : byte {
             Little = 0x01,
-            Big = 0x02
+            Big = 0x02,
         }
 
         private enum InstructionSetArchitecture : UInt16 {
             PowerPC = 0x15, //64-bit PowerPC (PS3)
-            ARM = 0x28 //32-bit ARM (Vita)
+            ARM = 0x28, //32-bit ARM (Vita)
         }
 
         public string Name { get; } = "Binary Blob";
@@ -35,10 +37,16 @@ namespace LBPUnion.UnionPatcher {
         public byte[] Contents { get; } = null;
 
         public ElfFile(byte[] fileContents) {
-            if(fileContents.Length < 52)
+            if(fileContents.Length < MinimumSize)
                 return;
 
-            IsValid = fileContents[0x00..0x04].SequenceEqual(new byte[] {0x7F, (byte)'E', (byte)'L', (byte)'F'});
+            IsValid = fileContents[..0x04].SequenceEqual(new byte[] {
+                0x7F,
+                (byte)'E',
+                (byte)'L',
+                (byte)'F',
+            });
+            
             if(!IsValid) return;
 
             byte identClassValue = fileContents[0x04];
