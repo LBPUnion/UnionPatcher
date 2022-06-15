@@ -1,17 +1,16 @@
 ﻿using System.Diagnostics;
+using LBPUnion.UnionPatcher;
 
-namespace LBPUnion.UnionPatcher.Cli; 
+namespace UnionPatcher.Cli; 
 
 public static class Program {
-    public const string Version = "1.0";
-
-    private static string fileName;
-
+    
+    private static string? fileName;
     public static string FileName {
         get {
             if(fileName != null) return fileName;
 
-            return fileName = Path.GetFileName(Process.GetCurrentProcess().MainModule?.FileName);
+            return fileName = (Path.GetFileName(Process.GetCurrentProcess().MainModule?.FileName) ?? "");
         }
     }
 
@@ -46,7 +45,7 @@ public static class Program {
     }
 
     public static void PrintHelp() {
-        Console.WriteLine($"UnionPatcher {Version}");
+        Console.WriteLine("UnionPatcher");
         Console.WriteLine($"    Usage: {FileName} <Input EBOOT.elf> <Server URL> <Output filename>");
     }
 }

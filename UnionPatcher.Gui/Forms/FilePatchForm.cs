@@ -4,49 +4,13 @@ using Eto;
 using Eto.Drawing;
 using Eto.Forms;
 
-namespace LBPUnion.UnionPatcher.Gui; 
+namespace LBPUnion.UnionPatcher.Gui.Forms; 
 
-public class MainForm : Form {
+public class FilePatchForm : Form {
     #region UI
     private readonly FilePicker filePicker;
     private readonly TextBox serverUrl;
     private readonly FilePicker outputFileName;
-    
-    public Dialog CreateOkDialog(string title, string errorMessage) {
-        DynamicLayout layout = new();
-        Button button;
-
-        layout.Spacing = new Size(5, 5);
-        layout.MinimumSize = new Size(350, 100);
-
-        layout.BeginHorizontal();
-        layout.Add(new Label {
-            Text = errorMessage,
-        });
-
-        layout.BeginHorizontal();
-        layout.BeginVertical();
-        layout.Add(null);
-        layout.Add(button = new Button {
-            Text = "OK",
-        });
-
-        layout.EndVertical();
-        layout.EndHorizontal();
-        layout.EndHorizontal();
-
-        Dialog dialog = new() {
-            Content = layout,
-            Padding = new Padding(10, 10, 10, 10),
-            Title = title,
-        };
-
-        button.Click += delegate {
-            dialog.Close();
-        };
-
-        return dialog;
-    }
 
     public Control CreatePatchButton(int tabIndex = 0) {
         Button control = new() {
@@ -54,7 +18,7 @@ public class MainForm : Form {
             TabIndex = tabIndex,
         };
 
-        control.Click += Patch;
+        control.Click += this.Patch;
 
         return control;
     }
@@ -76,8 +40,8 @@ public class MainForm : Form {
         return control;
     }
 
-    public MainForm() {
-        this.Title = "Union Patcher";
+    public FilePatchForm() {
+        this.Title = "UnionPatcher - File Patch";
         this.ClientSize = new Size(500, -1);
         this.Content = new TableLayout {
             Spacing = new Size(5,5),
@@ -109,27 +73,27 @@ public class MainForm : Form {
 
     private void Patch() {
         if(string.IsNullOrWhiteSpace(this.filePicker.FilePath)) {
-            this.CreateOkDialog("Form Error", "No file specified!").ShowModal();
+            Gui.CreateOkDialog("Form Error", "No file specified!").ShowModal();
             return;
         }
 
         if(string.IsNullOrWhiteSpace(this.serverUrl.Text)) {
-            this.CreateOkDialog("Form Error", "No server URL specified!").ShowModal();
+            Gui.CreateOkDialog("Form Error", "No server URL specified!").ShowModal();
             return;
         }
 
         if(string.IsNullOrWhiteSpace(this.outputFileName.FilePath)) {
-            this.CreateOkDialog("Form Error", "No output file specified!").ShowModal();
+            Gui.CreateOkDialog("Form Error", "No output file specified!").ShowModal();
             return;
         }
 
         if(this.filePicker.FilePath == this.outputFileName.FilePath) {
-            this.CreateOkDialog("Form Error", "Input and output filename are the same! Please save the patched file with a different name so you have a backup of your the original EBOOT.ELF.").ShowModal();
+            Gui.CreateOkDialog("Form Error", "Input and output filename are the same! Please save the patched file with a different name so you have a backup of your the original EBOOT.ELF.").ShowModal();
             return;
         }
 
         if(!Uri.TryCreate(this.serverUrl.Text, UriKind.Absolute, out _)) {
-            this.CreateOkDialog("Form Error", "Server URL is invalid! Please enter a valid URL.").ShowModal();
+            Gui.CreateOkDialog("Form Error", "Server URL is invalid! Please enter a valid URL.").ShowModal();
             return;
         }
             
@@ -138,17 +102,17 @@ public class MainForm : Form {
         ElfFile eboot = new(this.filePicker.FilePath);
 
         if(eboot.IsValid == false) {
-            this.CreateOkDialog("EBOOT Error", $"{eboot.Name} is not a valid ELF file (magic number mismatch)\n" + "The EBOOT must be decrypted before using this tool").ShowModal();
+            Gui.CreateOkDialog("EBOOT Error", $"{eboot.Name} is not a valid ELF file (magic number mismatch)\n" + "The EBOOT must be decrypted before using this tool").ShowModal();
             return;
         }
 
         if(eboot.Is64Bit == null) {
-            this.CreateOkDialog("EBOOT Error", $"{eboot.Name} does not target a valid system").ShowModal();
+            Gui.CreateOkDialog("EBOOT Error", $"{eboot.Name} does not target a valid system").ShowModal();
             return;
         }
 
         if(string.IsNullOrWhiteSpace(eboot.Architecture)) {
-            this.CreateOkDialog("EBOOT Error", $"{eboot.Name} does not target a valid architecture (PowerPC or ARM)").ShowModal();
+            Gui.CreateOkDialog("EBOOT Error", $"{eboot.Name} does not target a valid architecture (PowerPC or ARM)").ShowModal();
             return;
         }
 
@@ -156,10 +120,10 @@ public class MainForm : Form {
             Patcher.PatchFile(this.filePicker.FilePath, this.serverUrl.Text, this.outputFileName.FilePath);
         }
         catch(Exception e) {
-            this.CreateOkDialog("Error occurred while patching", "An error occured while patching:\n" + e).ShowModal();
+            Gui.CreateOkDialog("Error occurred while patching", "An error occured while patching:\n" + e).ShowModal();
             return;
         }
 
-        this.CreateOkDialog("Success!", "The Server URL has been patched to " + this.serverUrl.Text).ShowModal();
+        Gui.CreateOkDialog("Success!", "The Server URL has been patched to " + this.serverUrl.Text).ShowModal();
     }
 }
