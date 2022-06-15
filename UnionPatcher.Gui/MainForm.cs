@@ -1,5 +1,4 @@
 using System;
-using System.IO;
 using System.Diagnostics;
 using Eto;
 using Eto.Drawing;
@@ -12,6 +11,7 @@ public class MainForm : Form {
     private readonly FilePicker filePicker;
     private readonly TextBox serverUrl;
     private readonly FilePicker outputFileName;
+    
     public Dialog CreateOkDialog(string title, string errorMessage) {
         DynamicLayout layout = new();
         Button button;
@@ -50,7 +50,7 @@ public class MainForm : Form {
 
     public Control CreatePatchButton(int tabIndex = 0) {
         Button control = new() {
-            Text = EasterEgg.Restitch ? "Restitch!" : "Patch!",
+            Text = "Patch!",
             TabIndex = tabIndex,
         };
 
@@ -77,7 +77,7 @@ public class MainForm : Form {
     }
 
     public MainForm() {
-        this.Title = EasterEgg.Restitch ? "Union Restitcher" : "Union Patcher";
+        this.Title = "Union Patcher";
         this.ClientSize = new Size(500, -1);
         this.Content = new TableLayout {
             Spacing = new Size(5,5),
