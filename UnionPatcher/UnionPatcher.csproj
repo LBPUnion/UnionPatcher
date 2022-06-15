@@ -5,10 +5,20 @@
         <Configurations>Debug;Release;Windows</Configurations>
         <TargetFramework>net6.0</TargetFramework>
         <Platforms>AnyCPU</Platforms>
+        <ApplicationIcon>Icon64.ico</ApplicationIcon>
     </PropertyGroup>
     
     <PropertyGroup Condition=" '$(Configuration)' == 'Windows' ">
         <SelfContained>true</SelfContained>
         <RuntimeIdentifier>win-x64</RuntimeIdentifier>
     </PropertyGroup>
+
+    <ItemGroup>
+        <None Update="scetool\**">
+            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </None>
+        <None Update="data\**">
+            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </None>
+    </ItemGroup>
 </Project>

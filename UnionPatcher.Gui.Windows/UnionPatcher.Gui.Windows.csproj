@@ -5,6 +5,7 @@
         <TargetFramework>net6.0-windows</TargetFramework>
         <RootNamespace>LBPUnion.UnionPatcher.Gui.Windows</RootNamespace>
         <AssemblyName>LBPUnion.UnionPatcher.Gui.Windows</AssemblyName>
+        <ApplicationIcon>Icon64.ico</ApplicationIcon>
     </PropertyGroup>
 
     <ItemGroup>

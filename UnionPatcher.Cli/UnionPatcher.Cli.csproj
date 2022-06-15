@@ -6,6 +6,7 @@
         <ImplicitUsings>enable</ImplicitUsings>
         <Nullable>enable</Nullable>
         <AssemblyName>UnionPatcher</AssemblyName>
+        <ApplicationIcon>Icon64.ico</ApplicationIcon>
     </PropertyGroup>
 
     <ItemGroup>
