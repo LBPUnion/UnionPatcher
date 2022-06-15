@@ -1,7 +1,7 @@
-﻿namespace LBPUnion.UnionPatcher.Gui.Linux {
-    public static class Program {
-        public static void Main() {
-            Gui.Show();
-        }
+﻿namespace LBPUnion.UnionPatcher.Gui.Linux; 
+
+public static class Program {
+    public static void Main() {
+        Gui.Show();
     }
 }
