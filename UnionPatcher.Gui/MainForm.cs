@@ -7,6 +7,7 @@ using Eto.Forms;
 
 namespace LBPUnion.UnionPatcher.Gui {
     public class MainForm : Form {
+        #region UI
         private readonly FilePicker filePicker;
         private readonly TextBox serverUrl;
         private readonly FilePicker outputFileName;
@@ -52,61 +53,7 @@ namespace LBPUnion.UnionPatcher.Gui {
                 TabIndex = tabIndex,
             };
 
-            control.Click += delegate {
-                if(string.IsNullOrWhiteSpace(this.filePicker.FilePath)) {
-                    this.CreateOkDialog("Form Error", "No file specified!").ShowModal();
-                    return;
-                }
-
-                if(string.IsNullOrWhiteSpace(this.serverUrl.Text)) {
-                    this.CreateOkDialog("Form Error", "No server URL specified!").ShowModal();
-                    return;
-                }
-
-                if(string.IsNullOrWhiteSpace(this.outputFileName.FilePath)) {
-                    this.CreateOkDialog("Form Error", "No output file specified!").ShowModal();
-                    return;
-                }
-
-                ElfFile eboot = new(this.filePicker.FilePath);
-
-                if(eboot.IsValid == false) {
-                    this.CreateOkDialog("EBOOT Error", $"{eboot.Name} is not a valid ELF file (magic number mismatch)\nThe EBOOT must be decrypted before using this tool").ShowModal();
-                    return;
-                }
-
-                if(eboot.Is64Bit == null) {
-                    this.CreateOkDialog("EBOOT Error", $"{eboot.Name} does not target a valid system").ShowModal();
-                    return;
-                }
-
-                if(string.IsNullOrWhiteSpace(eboot.Architecture)) {
-                    this.CreateOkDialog("EBOOT Error", $"{eboot.Name} does not target a valid architecture (PowerPC or ARM)").ShowModal();
-                    return;
-                }
-
-                if (this.filePicker.FilePath == this.outputFileName.FilePath)
-                {
-                    this.CreateOkDialog("Form Error", "Input and output filename are the same! Please save the patched file with a different name so you have a backup of your the original EBOOT.ELF.").ShowModal();
-                    return;
-                }
-
-                if (!Uri.TryCreate(this.serverUrl.Text, UriKind.Absolute, out _))
-                {
-                    this.CreateOkDialog("Form Error", "Server URL is invalid! Please enter a valid URL.").ShowModal();
-                    return;
-                }
-
-                try {
-                    Patcher.PatchFile(this.filePicker.FilePath, this.serverUrl.Text, this.outputFileName.FilePath);
-                }
-                catch(Exception e) {
-                    this.CreateOkDialog("Error occurred while patching", "An error occured while patching:\n" + e).ShowModal();
-                    return;
-                }
-
-                this.CreateOkDialog("Success!", "The Server URL has been patched to " + this.serverUrl.Text).ShowModal();
-            };
+            control.Click += Patch;
 
             return control;
         }
@@ -153,6 +100,66 @@ namespace LBPUnion.UnionPatcher.Gui {
                     ),
                 },
             };
+        }
+        #endregion
+        private void Patch(object sender, EventArgs e) {
+            this.Patch();
+        }
+
+        private void Patch() {
+            if(string.IsNullOrWhiteSpace(this.filePicker.FilePath)) {
+                this.CreateOkDialog("Form Error", "No file specified!").ShowModal();
+                return;
+            }
+
+            if(string.IsNullOrWhiteSpace(this.serverUrl.Text)) {
+                this.CreateOkDialog("Form Error", "No server URL specified!").ShowModal();
+                return;
+            }
+
+            if(string.IsNullOrWhiteSpace(this.outputFileName.FilePath)) {
+                this.CreateOkDialog("Form Error", "No output file specified!").ShowModal();
+                return;
+            }
+
+            if(this.filePicker.FilePath == this.outputFileName.FilePath) {
+                this.CreateOkDialog("Form Error", "Input and output filename are the same! Please save the patched file with a different name so you have a backup of your the original EBOOT.ELF.").ShowModal();
+                return;
+            }
+
+            if(!Uri.TryCreate(this.serverUrl.Text, UriKind.Absolute, out _)) {
+                this.CreateOkDialog("Form Error", "Server URL is invalid! Please enter a valid URL.").ShowModal();
+                return;
+            }
+            
+            // Validate EBOOT after validating form; more expensive
+
+            ElfFile eboot = new(this.filePicker.FilePath);
+
+            if(eboot.IsValid == false) {
+                this.CreateOkDialog("EBOOT Error", $"{eboot.Name} is not a valid ELF file (magic number mismatch)\n" + "The EBOOT must be decrypted before using this tool").ShowModal();
+                return;
+            }
+
+            if(eboot.Is64Bit == null) {
+                this.CreateOkDialog("EBOOT Error", $"{eboot.Name} does not target a valid system").ShowModal();
+                return;
+            }
+
+            if(string.IsNullOrWhiteSpace(eboot.Architecture)) {
+                this.CreateOkDialog("EBOOT Error", $"{eboot.Name} does not target a valid architecture (PowerPC or ARM)").ShowModal();
+                return;
+            }
+
+            try {
+                Patcher.PatchFile(this.filePicker.FilePath, this.serverUrl.Text, this.outputFileName.FilePath);
+            }
+            catch(Exception e) {
+                this.CreateOkDialog("Error occurred while patching", "An error occured while patching:\n" + e).ShowModal();
+                return;
+            }
+
+            this.CreateOkDialog("Success!", "The Server URL has been patched to " + this.serverUrl.Text).ShowModal();
         }
     }
 }
