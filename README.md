@@ -1,15 +1,13 @@
 # UnionPatcher
 
-A tool that will take the official EBOOT of a LittleBIGPlanet title and replace the server URLs with a custom one
+A tool that will take the official EBOOT of a LittleBigPlanet title and replace the server URLs with a custom one
 
 ## Prerequisites
 * For running the console application, you will need the [.NET 6 Runtime](https://dotnet.microsoft.com/en-us/download/dotnet/6.0/runtime?utm_source=getdotnetcore&utm_medium=referral)
 * You will need to know the server URL you wish to use
 
 ## Getting the latest build
-1. Access the [CI builds for UnionPatcher](https://github.com/LBPUnion/UnionPatcher/actions)
-2. In the "workflow runs" grid, select the first in the list with a green check mark (✔️)
-3. Scroll to the bottom of this build and find the correct zip for your platform
+You can obtain UnionPatcher builds via GitHub releases: https://github.com/LBPUnion/UnionPatcher/releases
 
 ## Building manually (Required for MacOS)
 You will need the [.NET 6 SDK](https://dotnet.microsoft.com/en-us/download/dotnet/6.0)
