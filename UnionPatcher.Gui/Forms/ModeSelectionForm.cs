@@ -27,14 +27,24 @@ public class ModeSelectionForm : Form {
     }
     
     private void openRemotePatcher(object sender, EventArgs e) {
-        new RemotePatchForm().Show();
-        this.Close();
+        RemotePatchForm rpForm = new RemotePatchForm();
+        rpForm.Show();
+        rpForm.Closed += OnSubFormClose;
+
+        this.Visible = false;
     }
     private void openLocalPatcher(object sender, EventArgs e) {
         throw new NotImplementedException();
     }
     private void openFilePatcher(object sender, EventArgs e) {
-        new FilePatchForm().Show();
+        FilePatchForm fpForm = new FilePatchForm();
+        fpForm.Show();
+        fpForm.Closed += OnSubFormClose;
+
+        this.Visible = false;
+    }
+    private void OnSubFormClose(object sender, EventArgs e)
+    {
         this.Close();
     }
 
