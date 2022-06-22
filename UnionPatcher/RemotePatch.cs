@@ -43,8 +43,17 @@ public class RemotePatch
             platformExecutable = "scetool/win64/scetool.exe";
         else if (RuntimeInformation.IsOSPlatform(OSPlatform.Linux))
             platformExecutable = "scetool/linux64/scetool";
-        else if (RuntimeInformation.IsOSPlatform(OSPlatform.OSX)) platformExecutable = "";
-
+        else if (RuntimeInformation.IsOSPlatform(OSPlatform.OSX))
+        {
+            if (RuntimeInformation.OSArchitecture == Architecture.Arm64) 
+            {
+                platformExecutable = "scetool/macarm64/scetool"; // For Apple Silicon Macs
+            }
+            else
+            {
+                platformExecutable = "scetool/mac64/scetool";
+            }
+        }
         if (platformExecutable != "")
         {
             ProcessStartInfo startInfo = new();
