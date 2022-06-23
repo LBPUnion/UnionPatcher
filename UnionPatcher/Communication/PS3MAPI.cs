@@ -12,7 +12,7 @@ using System.Net.Sockets;
 using System.Text;
 using System.Text.RegularExpressions;
 
-namespace LBPUnion.UnionPatcher.Communication; 
+namespace LBPUnion.UnionPatcher.Communication;
 
 public class PS3MAPI
 {
@@ -102,7 +102,7 @@ public class PS3MAPI
             Double = 2,
             Triple = 3,
         }
-        
+
         /// <summary>Ring PS3 Buzzer.</summary>
         /// <param name="mode">Simple, Double, Continuous</param>
         public void RingBuzzer(BuzzerMode mode)
@@ -234,7 +234,7 @@ public class PS3MAPI
                 }
             }
             main_sock = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
-            main_ipEndPoint = new IPEndPoint(Dns.GetHostByName(sServerIP).AddressList[0], Port);
+            main_ipEndPoint = new IPEndPoint(Dns.GetHostAddresses(sServerIP)[0], Port);
             try
             {
                 main_sock.Connect(main_ipEndPoint);
@@ -781,12 +781,12 @@ public class PS3MAPI
                             SetBinaryMode(false);
                         }
                     }
-                    catch (Exception e)
+                    catch
                     {
                         CloseDataSocket();
                         ReadResponse();
                         SetBinaryMode(false);
-                        throw e;
+                        throw;
                     }
                 }
             }
@@ -847,12 +847,12 @@ public class PS3MAPI
                             SetBinaryMode(false);
                         }
                     }
-                    catch (Exception e)
+                    catch
                     {
                         CloseDataSocket();
                         ReadResponse();
                         SetBinaryMode(false);
-                        throw e;
+                        throw;
                     }
                 }
             }
@@ -1094,7 +1094,7 @@ public class PS3MAPI
             {
                 CloseDataSocket();
                 data_sock = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
-                data_ipEndPoint = new IPEndPoint(Dns.GetHostByName(sServerIP).AddressList[0], iPort);
+                data_ipEndPoint = new IPEndPoint(Dns.GetHostAddresses(sServerIP)[0], iPort);
                 data_sock.Connect(data_ipEndPoint);
             }
             catch (Exception e)
