@@ -9,11 +9,13 @@
     </PropertyGroup>
 
     <ItemGroup>
-      <PackageReference Include="Eto.Platform.Direct2D" Version="2.5.11" />
+      <PackageReference Include="Eto.Platform.Direct2D" Version="2.7.0" />
     </ItemGroup>
 
     <ItemGroup>
-      <ProjectReference Include="..\UnionPatcher.Gui\UnionPatcher.Gui.csproj" />
+      <ProjectReference Include="..\UnionPatcher.Gui\UnionPatcher.Gui.csproj">
+        <ReferenceSourceTarget></ReferenceSourceTarget>
+      </ProjectReference>
     </ItemGroup>
 
     <ItemGroup>
