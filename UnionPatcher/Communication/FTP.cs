@@ -5,13 +5,15 @@ using System.IO;
 using System.Linq;
 using System.Net;
 
-namespace LBPUnion.UnionPatcher.Communication; 
+#pragma warning disable SYSLIB0014 // the FtpWebRequest is needed in this case
 
+namespace LBPUnion.UnionPatcher.Communication;
 public static class FTP
 {
     public static bool FileExists(string url, string user, string pass)
     {
         FtpWebRequest request = (FtpWebRequest)WebRequest.Create(url);
+
         request.Credentials = new NetworkCredential(user, pass);
         request.Method = WebRequestMethods.Ftp.GetDateTimestamp;
 
@@ -36,6 +38,7 @@ public static class FTP
 
     public static string[] ListDirectory(string url, string user, string pass)
     {
+
         FtpWebRequest request = (FtpWebRequest)WebRequest.Create(url);
         request.Credentials = new NetworkCredential(user, pass);
         request.Method = WebRequestMethods.Ftp.ListDirectory;
@@ -53,7 +56,7 @@ public static class FTP
                 .Where(dir => !string.IsNullOrWhiteSpace(dir) && dir != "." && dir != "..")
                 .ToList();
 
-            foreach(string dir in dirs.ToArray())
+            foreach (string dir in dirs.ToArray())
             {
                 Console.WriteLine($"/{dir}");
             }
@@ -128,7 +131,7 @@ public static class FTP
             FtpWebResponse response = (FtpWebResponse)request.GetResponse();
 
             Stream responseStream = response.GetResponseStream();
-                
+
             using StreamReader reader = new(responseStream);
             return reader.ReadToEnd();
 
