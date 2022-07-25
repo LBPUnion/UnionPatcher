@@ -3,7 +3,7 @@
     <PropertyGroup>
         <OutputType>Exe</OutputType>
         <TargetFramework>net6.0</TargetFramework>
-        <RuntimeIdentifiers>osx-x64</RuntimeIdentifiers>
+        <RuntimeIdentifiers>osx-x64;osx-arm64</RuntimeIdentifiers>
         <AssemblyName>LBPUnion.UnionPatcher.Gui.MacOS</AssemblyName>
         <RootNamespace>LBPUnion.UnionPatcher.Gui.MacOS</RootNamespace>
         <ApplicationIcon>Icon64.ico</ApplicationIcon>
@@ -16,6 +16,6 @@
     </ItemGroup>
 
     <ItemGroup>
-      <PackageReference Include="Eto.Platform.Mac64" Version="2.5.11" />
+      <PackageReference Include="Eto.Platform.Mac64" Version="2.7.0" />
     </ItemGroup>
 </Project>
