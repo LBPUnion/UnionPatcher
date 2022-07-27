@@ -1088,7 +1088,7 @@ public class PS3MAPI
                 Fail(new Exception("Malformed PASV response: " + sResponse));
             }
 
-            sServer = String.Format("{0}.{1}.{2}.{3}", pasv[0], pasv[1], pasv[2], pasv[3]);
+            sServer = string.Format("{0}.{1}.{2}.{3}", pasv[0], pasv[1], pasv[2], pasv[3]);
             iPort = (int.Parse(pasv[4]) << 8) + int.Parse(pasv[5]);
             try
             {
@@ -1159,13 +1159,13 @@ public class PS3MAPI
         {
             sLog = sLog + "COMMAND: " + sCommand + Environment.NewLine;
             Connect();
-            Byte[] byCommand = Encoding.ASCII.GetBytes((sCommand + "\r\n").ToCharArray());
+            byte[] byCommand = Encoding.ASCII.GetBytes((sCommand + "\r\n").ToCharArray());
             main_sock.Send(byCommand, byCommand.Length, 0);
             ReadResponse();
         }
         internal static void FillBucket()
         {
-            Byte[] bytes = new Byte[512];
+            byte[] bytes = new byte[512];
             long lBytesRecieved;
             int iMilliSecondsPassed = 0;
             while (main_sock.Available < 1)

@@ -26,7 +26,7 @@ public class ElfFile {
     private enum InstructionSetArchitecture : ushort {
         PowerPC = 0x15, //64-bit PowerPC (PS3)
         ARM = 0x28, //32-bit ARM (Vita)
-        MipsRS3000, // MIPS RS3000 Big-Endian 32bit (PSP)
+        MipsRS3000 = 0x08, // MIPS RS3000 Big-Endian 32bit (PSP)
     }
 
     public string Name { get; } = "Binary Blob";
@@ -73,12 +73,12 @@ public class ElfFile {
 
     private string GetFileArchitecture(byte[] elfHeader, bool isBigEndian) {
         byte[] architectureBytes = elfHeader[0x12..0x14];
-        UInt16 fileArch = (isBigEndian) ?
+        ushort fileArch = (isBigEndian) ?
             BinaryPrimitives.ReadUInt16BigEndian(architectureBytes) :
             BinaryPrimitives.ReadUInt16LittleEndian(architectureBytes);
 
         foreach(InstructionSetArchitecture arch in Enum.GetValues(typeof(InstructionSetArchitecture))) {
-            if(fileArch == (UInt16)arch)
+            if(fileArch == (ushort)arch)
                 return arch.ToString();
         }
         return null;
