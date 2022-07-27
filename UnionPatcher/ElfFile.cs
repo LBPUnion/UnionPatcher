@@ -23,9 +23,10 @@ public class ElfFile {
         Big = 0x02,
     }
 
-    private enum InstructionSetArchitecture : UInt16 {
+    private enum InstructionSetArchitecture : ushort {
         PowerPC = 0x15, //64-bit PowerPC (PS3)
         ARM = 0x28, //32-bit ARM (Vita)
+        MipsRS3000, // MIPS RS3000 Big-Endian 32bit (PSP)
     }
 
     public string Name { get; } = "Binary Blob";
