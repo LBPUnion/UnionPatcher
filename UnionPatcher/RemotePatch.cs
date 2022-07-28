@@ -70,22 +70,21 @@ public class RemotePatch
 
         }
 
-            ProcessStartInfo startInfo = new();
-            startInfo.UseShellExecute = false;
-            startInfo.FileName = Path.GetFullPath(platformExecutable);
-            startInfo.WorkingDirectory = Path.GetFullPath(".");
-            startInfo.Arguments = args;
-            startInfo.RedirectStandardOutput = true;
+        ProcessStartInfo startInfo = new();
+        startInfo.UseShellExecute = false;
+        startInfo.FileName = Path.GetFullPath(platformExecutable);
+        startInfo.WorkingDirectory = Path.GetFullPath(".");
+        startInfo.Arguments = args;
+        startInfo.RedirectStandardOutput = true;
 
-            Console.WriteLine("\n\n===== START SCETOOL =====\n");
-            using (Process proc = Process.Start(startInfo))
-            {
-                while (!proc.StandardOutput.EndOfStream) Console.WriteLine(proc.StandardOutput.ReadLine());
-                proc.WaitForExit();
-            }
+        Console.WriteLine("\n\n===== START SCETOOL =====\n");
+        using (Process proc = Process.Start(startInfo))
+        {
+            while (!proc.StandardOutput.EndOfStream) Console.WriteLine(proc.StandardOutput.ReadLine());
+            proc.WaitForExit();
+        }
 
-            Console.WriteLine("\n===== END SCETOOL =====\n\n");
-        
+        Console.WriteLine("\n===== END SCETOOL =====\n\n");
     }
 
     public void RevertEBOOT(string ps3ip, string gameID, string serverURL, string user, string pass)
@@ -237,17 +236,5 @@ public class RemotePatch
         // And upload the encrypted, patched EBOOT to the system.
         FTP.UploadFile(@$"eboot/{gameID}/patched/EBOOT.BIN",
             $"ftp://{ps3ip}/dev_hdd0/game/{gameID}/USRDIR/EBOOT.BIN", user, pass);
-    }
-
-    public static OSPlatform GetPlatform() // this should be moved elsewhere later
-    {
-        OSPlatform platform = new OSPlatform();
-
-        if (RuntimeInformation.IsOSPlatform(OSPlatform.Windows)) platform = OSPlatform.Windows;
-        else if (RuntimeInformation.IsOSPlatform(OSPlatform.Linux)) platform = OSPlatform.Linux;
-        else if (RuntimeInformation.IsOSPlatform(OSPlatform.OSX)) platform = OSPlatform.OSX;
-        else if (RuntimeInformation.IsOSPlatform(OSPlatform.FreeBSD)) platform = OSPlatform.FreeBSD;
-
-        return platform;
     }
 }
