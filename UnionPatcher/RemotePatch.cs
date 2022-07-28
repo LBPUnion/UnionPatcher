@@ -38,24 +38,38 @@ public class RemotePatch
     public static void LaunchSCETool(string args)
     {
         string platformExecutable = "";
+        switch (OSUtil.GetPlatform())
+        {
+            case OSPlatform.Windows:
+                platformExecutable = "scetool/win64/scetool.exe";
+                break;
+            case OSPlatform.Linux:
+                if(RuntimeInformation.ProcessArchitecture == Architecture.X64)
+                {
+                    platformExecutable = "scetool/linux64/scetool";
+                } else if (RuntimeInformation.ProcessArchitecture == Architecture.Arm)
+                {
+                    platformExecutable = "scetool/linuxarm/scetool";
+                } else if (RuntimeInformation.ProcessArchitecture == Architecture.Arm64)
+                {
+                    platformExecutable = "scetool/linuxarm64/scetool";
+                }
+                break;
+            case OSPlatform.OSX:
+                if (RuntimeInformation.OSArchitecture == Architecture.Arm64)
+                {
+                    platformExecutable = "scetool/macarm64/scetool"; // For Apple Silicon Macs
+                }
+                else
+                {
+                    platformExecutable = "scetool/mac64/scetool";
+                }
+                break;
+            default:
+                throw new Exception("Error starting SCETool. Your platform may not be supported yet.");
 
-        if (RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
-            platformExecutable = "scetool/win64/scetool.exe";
-        else if (RuntimeInformation.IsOSPlatform(OSPlatform.Linux))
-            platformExecutable = "scetool/linux64/scetool";
-        else if (RuntimeInformation.IsOSPlatform(OSPlatform.OSX))
-        {
-            if (RuntimeInformation.OSArchitecture == Architecture.Arm64) 
-            {
-                platformExecutable = "scetool/macarm64/scetool"; // For Apple Silicon Macs
-            }
-            else
-            {
-                platformExecutable = "scetool/mac64/scetool";
-            }
         }
-        if (platformExecutable != "")
-        {
+
             ProcessStartInfo startInfo = new();
             startInfo.UseShellExecute = false;
             startInfo.FileName = Path.GetFullPath(platformExecutable);
@@ -71,11 +85,7 @@ public class RemotePatch
             }
 
             Console.WriteLine("\n===== END SCETOOL =====\n\n");
-        }
-        else
-        {
-            throw new Exception("Error starting SCETool. Your platform may not be supported yet.");
-        }
+        
     }
 
     public void RevertEBOOT(string ps3ip, string gameID, string serverURL, string user, string pass)
@@ -227,5 +237,17 @@ public class RemotePatch
         // And upload the encrypted, patched EBOOT to the system.
         FTP.UploadFile(@$"eboot/{gameID}/patched/EBOOT.BIN",
             $"ftp://{ps3ip}/dev_hdd0/game/{gameID}/USRDIR/EBOOT.BIN", user, pass);
+    }
+
+    public static OSPlatform GetPlatform() // this should be moved elsewhere later
+    {
+        OSPlatform platform = new OSPlatform();
+
+        if (RuntimeInformation.IsOSPlatform(OSPlatform.Windows)) platform = OSPlatform.Windows;
+        else if (RuntimeInformation.IsOSPlatform(OSPlatform.Linux)) platform = OSPlatform.Linux;
+        else if (RuntimeInformation.IsOSPlatform(OSPlatform.OSX)) platform = OSPlatform.OSX;
+        else if (RuntimeInformation.IsOSPlatform(OSPlatform.FreeBSD)) platform = OSPlatform.FreeBSD;
+
+        return platform;
     }
 }
