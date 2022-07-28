@@ -9,6 +9,7 @@
       <Path>README.md</Path>
       <Path>UnionPatcher.sln.DotSettings</Path>
       <Path>UnionPatcher.sln.DotSettings.user</Path>
+      <Path>build-all.sh</Path>
       <Path>global.json</Path>
     </explicitIncludes>
     <explicitExcludes />

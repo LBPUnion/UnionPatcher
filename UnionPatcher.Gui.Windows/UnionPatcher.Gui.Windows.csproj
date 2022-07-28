@@ -20,5 +20,6 @@
 
     <ItemGroup>
         <KnownFrameworkReference Update="Microsoft.WindowsDesktop.App.WindowsForms" IsWindowsOnly="false" />
+        <KnownFrameworkReference Update="Microsoft.WindowsDesktop.App" IsWindowsOnly="false"/>
     </ItemGroup>
 </Project>
