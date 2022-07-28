@@ -38,44 +38,53 @@ public class RemotePatch
     public static void LaunchSCETool(string args)
     {
         string platformExecutable = "";
-
-        if (RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
-            platformExecutable = "scetool/win64/scetool.exe";
-        else if (RuntimeInformation.IsOSPlatform(OSPlatform.Linux))
-            platformExecutable = "scetool/linux64/scetool";
-        else if (RuntimeInformation.IsOSPlatform(OSPlatform.OSX))
+        switch (OSUtil.GetPlatform())
         {
-            if (RuntimeInformation.OSArchitecture == Architecture.Arm64) 
-            {
-                platformExecutable = "scetool/macarm64/scetool"; // For Apple Silicon Macs
-            }
-            else
-            {
-                platformExecutable = "scetool/mac64/scetool";
-            }
-        }
-        if (platformExecutable != "")
-        {
-            ProcessStartInfo startInfo = new();
-            startInfo.UseShellExecute = false;
-            startInfo.FileName = Path.GetFullPath(platformExecutable);
-            startInfo.WorkingDirectory = Path.GetFullPath(".");
-            startInfo.Arguments = args;
-            startInfo.RedirectStandardOutput = true;
+            case OSPlatform.Windows:
+                platformExecutable = "scetool/win64/scetool.exe";
+                break;
+            case OSPlatform.Linux:
+                if(RuntimeInformation.ProcessArchitecture == Architecture.X64)
+                {
+                    platformExecutable = "scetool/linux64/scetool";
+                } else if (RuntimeInformation.ProcessArchitecture == Architecture.Arm)
+                {
+                    platformExecutable = "scetool/linuxarm/scetool";
+                } else if (RuntimeInformation.ProcessArchitecture == Architecture.Arm64)
+                {
+                    platformExecutable = "scetool/linuxarm64/scetool";
+                }
+                break;
+            case OSPlatform.OSX:
+                if (RuntimeInformation.OSArchitecture == Architecture.Arm64)
+                {
+                    platformExecutable = "scetool/macarm64/scetool"; // For Apple Silicon Macs
+                }
+                else
+                {
+                    platformExecutable = "scetool/mac64/scetool";
+                }
+                break;
+            default:
+                throw new Exception("Error starting SCETool. Your platform may not be supported yet.");
 
-            Console.WriteLine("\n\n===== START SCETOOL =====\n");
-            using (Process proc = Process.Start(startInfo))
-            {
-                while (!proc.StandardOutput.EndOfStream) Console.WriteLine(proc.StandardOutput.ReadLine());
-                proc.WaitForExit();
-            }
+        }
 
-            Console.WriteLine("\n===== END SCETOOL =====\n\n");
-        }
-        else
+        ProcessStartInfo startInfo = new();
+        startInfo.UseShellExecute = false;
+        startInfo.FileName = Path.GetFullPath(platformExecutable);
+        startInfo.WorkingDirectory = Path.GetFullPath(".");
+        startInfo.Arguments = args;
+        startInfo.RedirectStandardOutput = true;
+
+        Console.WriteLine("\n\n===== START SCETOOL =====\n");
+        using (Process proc = Process.Start(startInfo))
         {
-            throw new Exception("Error starting SCETool. Your platform may not be supported yet.");
+            while (!proc.StandardOutput.EndOfStream) Console.WriteLine(proc.StandardOutput.ReadLine());
+            proc.WaitForExit();
         }
+
+        Console.WriteLine("\n===== END SCETOOL =====\n\n");
     }
 
     public void RevertEBOOT(string ps3ip, string gameID, string serverURL, string user, string pass)
