@@ -1,6 +1,7 @@
 using System;
 using System.IO;
 using System.Text;
+using System.Text.RegularExpressions;
 
 namespace LBPUnion.UnionPatcher; 
 
@@ -72,13 +73,18 @@ public static class Patcher {
         byte[] serverUrlAsBytes = Encoding.ASCII.GetBytes(serverUrl);
 
         bool wroteUrl = false;
-        foreach(string url in toBePatched) {
-            if(serverUrl.Length > url.Length) {
+
+        // Find a string including http or https and LITTLEBIGPLANETPS3_XML or LITTLEBIGPLANETPSP_XML
+        MatchCollection urls = Regex.Matches(dataAsString, "https?.*?LITTLEBIGPLANETPS(3|P)_XML");
+        foreach(Match urlMatch in urls) {
+            string url = urlMatch.Value;
+
+            // Hard coded 79 max length
+            // TODO: Get length of index to next data in EBOOT to calcuate true maximum length
+            if(serverUrl.Length > 79) {
                 throw new ArgumentOutOfRangeException(nameof(serverUrl), $"Server URL ({serverUrl.Length} characters long) is above maximum length {url.Length}");
             }
-                
-            int offset = dataAsString.IndexOf(url, StringComparison.Ordinal);
-            if(offset < 1) continue;
+            int offset = urlMatch.Index;
 
             writer.BaseStream.Position = offset;
             for(int i = 0; i < url.Length; i++) {
