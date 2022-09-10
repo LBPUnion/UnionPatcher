@@ -54,8 +54,8 @@ public static class Patcher {
         foreach(Match urlMatch in urls) {
             string url = urlMatch.Value;
 
-            if(serverUrl.Length > url.Length) {
-                throw new ArgumentOutOfRangeException(nameof(serverUrl), $"Server URL ({serverUrl.Length} characters long) is above maximum length {url.Length}");
+            if(serverUrl.Length > url.Length - 1) {
+                throw new ArgumentOutOfRangeException(nameof(serverUrl), $"Server URL ({serverUrl.Length} characters long) is above maximum length {url.Length - 1}");
             }
             int offset = urlMatch.Index;
 
