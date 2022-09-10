@@ -50,7 +50,7 @@ public static class Patcher {
         // Find a string including http or https and LITTLEBIGPLANETPS3_XML or LITTLEBIGPLANETPSP_XML, 
         // then match any additional NULL characters to dynamically gague the maximum length on a per-title basis 
         // without a hardcoded array of known server URLs
-        MatchCollection urls = Regex.Matches(dataAsString, "(https?.*?LITTLEBIGPLANETPS(3|P)_XML)(\x00*)");
+        MatchCollection urls = Regex.Matches(dataAsString, "http?[^\x00]*?LITTLEBIGPLANETPS(3|P)_XML\x00");
         foreach(Match urlMatch in urls) {
             string url = urlMatch.Value;
 
