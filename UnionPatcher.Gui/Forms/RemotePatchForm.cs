@@ -34,25 +34,25 @@ public class RemotePatchForm : Form
         control.Click += delegate {
             if (string.IsNullOrEmpty(this.ps3LocalIP.Text))
             {
-                Gui.CreateOkDialog("Error", "No PS3 IP address specified!").ShowModal();
+                Gui.CreateOkDialog("Error", "No PS3 IP address specified!");
                 return;
             }
 
             if (string.IsNullOrEmpty(this.lbpGameID.Text))
             {
-                Gui.CreateOkDialog("Error", "No title ID specified!").ShowModal();
+                Gui.CreateOkDialog("Error", "No title ID specified!");
                 return;
             }
 
             if (string.IsNullOrEmpty(this.serverUrl.Text))
             {
-                Gui.CreateOkDialog("Error", "No server URL specified!").ShowModal();
+                Gui.CreateOkDialog("Error", "No server URL specified!");
                 return;
             }
                 
             if (!Uri.TryCreate(this.serverUrl.Text, UriKind.Absolute, out _))
             {
-                Gui.CreateOkDialog("Error", "Server URL is invalid! Please enter a valid URL.").ShowModal();
+                Gui.CreateOkDialog("Error", "Server URL is invalid! Please enter a valid URL.");
                 return;
             }
 
@@ -69,11 +69,11 @@ public class RemotePatchForm : Form
             }
             catch (Exception e)
             {
-                Gui.CreateOkDialog("Error occurred while patching", "An error occured while patching:\n" + e).ShowModal();
+                Gui.CreateOkDialog("Error occurred while patching", "An error occured while patching:\n" + e);
                 return;
             }
 
-            Gui.CreateOkDialog("Success!", $"The Server URL for {this.lbpGameID.Text} on the PS3 at {this.ps3LocalIP.Text} has been patched to {this.serverUrl.Text}").ShowModal();
+            Gui.CreateOkDialog("Success!", $"The Server URL for {this.lbpGameID.Text} on the PS3 at {this.ps3LocalIP.Text} has been patched to {this.serverUrl.Text}");
         };
 
         return control;
@@ -91,13 +91,13 @@ public class RemotePatchForm : Form
         control.Click += delegate {
             if (string.IsNullOrEmpty(this.ps3LocalIP.Text))
             {
-                Gui.CreateOkDialog("Form Error", "No PS3 IP address specified!").ShowModal();
+                Gui.CreateOkDialog("Form Error", "No PS3 IP address specified!");
                 return;
             }
 
             if (string.IsNullOrEmpty(this.lbpGameID.Text))
             {
-                Gui.CreateOkDialog("Form Error", "No game ID specified!").ShowModal();
+                Gui.CreateOkDialog("Form Error", "No game ID specified!");
                 return;
             }
                 
@@ -107,11 +107,11 @@ public class RemotePatchForm : Form
             }
             catch (Exception e)
             {
-                Gui.CreateOkDialog("Error occurred while reverting EBOOT", "An error occured while patching:\n" + e).ShowModal();
+                Gui.CreateOkDialog("Error occurred while reverting EBOOT", "An error occured while patching:\n" + e);
                 return;
             }
 
-            Gui.CreateOkDialog("Success!", $"UnionRemotePatcher reverted your the EBOOT for {this.lbpGameID.Text} to stock. You're ready to patch your EBOOT again.").ShowModal();
+            Gui.CreateOkDialog("Success!", $"UnionRemotePatcher reverted your the EBOOT for {this.lbpGameID.Text} to stock. You're ready to patch your EBOOT again.");
         };
 
         return control;

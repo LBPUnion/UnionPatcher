@@ -9,39 +9,44 @@ public static class Gui {
         new Application().Run(new ModeSelectionForm());
     }
 
-    public static Dialog CreateOkDialog(string title, string errorMessage) {
-        DynamicLayout layout = new();
-        Button button;
+    public static void CreateOkDialog(string title, string errorMessage) {
+        MessageBox.Show(errorMessage, title, MessageBoxButtons.OK, MessageBoxType.Question);
+        // DynamicLayout layout = new();
+        // Button button;
 
-        layout.Spacing = new Size(5, 5);
-        layout.MinimumSize = new Size(350, 100);
+        // layout.Spacing = new Size(5, 5);
+        // layout.MinimumSize = new Size(350, 100);
 
-        layout.BeginHorizontal();
-        layout.Add(new Label {
-            Text = errorMessage,
-        });
+        // layout.BeginHorizontal();
+        // layout.Add(new Label {
+        //     Text = errorMessage,
+        // });
 
-        layout.BeginHorizontal();
-        layout.BeginVertical();
-        layout.Add(null);
-        layout.Add(button = new Button {
-            Text = "OK",
-        });
+        // layout.BeginHorizontal();
+        // layout.BeginVertical();
+        // layout.Add(null);
+        // layout.Add(button = new Button {
+        //     Text = "OK",
+        // });
 
-        layout.EndVertical();
-        layout.EndHorizontal();
-        layout.EndHorizontal();
+        // layout.EndVertical();
+        // layout.EndHorizontal();
+        // layout.EndHorizontal();
 
-        Dialog dialog = new() {
-            Content = layout,
-            Padding = new Padding(10, 10, 10, 10),
-            Title = title,
-        };
+        // Dialog dialog = new() {
+        //     Content = layout,
+        //     Padding = new Padding(10, 10, 10, 10),
+        //     Title = title,
+        // };
 
-        button.Click += delegate {
-            dialog.Close();
-        };
+        // button.Click += delegate {
+        //     dialog.Close();
+        // };
 
-        return dialog;
+        // return dialog;
+    }
+    public static bool CreateConfirmationDialog(string title, string errorMessage) {
+        DialogResult result = MessageBox.Show(errorMessage, title, MessageBoxButtons.YesNo, MessageBoxType.Question);
+        return result == DialogResult.Yes;
     }
 }
