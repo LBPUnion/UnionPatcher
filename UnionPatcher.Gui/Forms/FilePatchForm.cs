@@ -49,7 +49,7 @@ public class FilePatchForm : Form {
             Rows = {
                 new TableRow(
                     new TableCell(new Label { Text = "EBOOT.elf: ", VerticalAlignment = VerticalAlignment.Center }),
-                    new TableCell(this.filePicker = new FilePicker { TabIndex = 0 })
+                    new TableCell(this.filePicker = new FilePicker { TabIndex = 0 , FileAction = FileAction.OpenFile, Filters = { new FileFilter("ELF files", ".elf", ".ELF"), new FileFilter("All Files", ".*") }})
                 ),
                 new TableRow(
                     new TableCell(new Label { Text = "Server URL: ", VerticalAlignment = VerticalAlignment.Center }),
@@ -57,7 +57,7 @@ public class FilePatchForm : Form {
                 ),
                 new TableRow(
                     new TableCell(new Label { Text = "Output filename: ", VerticalAlignment = VerticalAlignment.Center }),
-                    new TableCell(this.outputFileName = new FilePicker { TabIndex = 2, FileAction = FileAction.SaveFile })
+                    new TableCell(this.outputFileName = new FilePicker { TabIndex = 2, FileAction = FileAction.SaveFile,  Filters = { new FileFilter("ELF files", ".elf", ".ELF"), new FileFilter("All Files", ".*") }})
                 ),
                 new TableRow(
                     new TableCell(this.CreateHelpButton(4)),
