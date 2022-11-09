@@ -31,17 +31,17 @@ public class ModeSelectionForm : Form {
     {
         if (OSUtil.GetPlatform() == OSPlatform.OSX)
         {
-            Gui.CreateOkDialog("Workaround", "UnionPatcher RemotePatcher requires a staging folder on macOS, please set this to the directory of the UnionPatcher.app!");
+            Gui.CreateOkDialog("Workaround", "UnionPatcher RemotePatcher requires a staging folder on macOS, please set this to the directory of the UnionPatcher app!");
             SelectFolderDialog dialog = new SelectFolderDialog();
             if (dialog.ShowDialog(this) != DialogResult.Ok)
             {
-                Gui.CreateOkDialog("Workaround", "Was not specified a staging folder, aborting!");
+                Gui.CreateOkDialog("Workaround", "User did not specify a staging folder, aborting!");
                 return;
             }
             Directory.SetCurrentDirectory(dialog.Directory);
             if (!Directory.Exists("scetool"))
             {
-                Gui.CreateOkDialog("Workaround", "Invalid folder, remember to set the folder to the directory of UnionPatcher.app!");
+                Gui.CreateOkDialog("Workaround", "Invalid folder, remember to set the folder to the directory of the UnionPatcher app!");
                 return;
             } 
         }
