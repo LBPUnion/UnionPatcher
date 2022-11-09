@@ -1,8 +1,9 @@
 using System;
+using System.IO;
 using Eto.Drawing;
 using Eto.Forms;
 
-namespace LBPUnion.UnionPatcher.Gui.Forms; 
+namespace LBPUnion.UnionPatcher.Gui.Forms;
 
 public class ModeSelectionForm : Form {
     #region UI
@@ -23,10 +24,27 @@ public class ModeSelectionForm : Form {
                     new TableCell(new Button(openFilePatcher) { Text = "File Patch (PS3/RPCS3)" })
                 ),
             },
-        }; 
+        };
     }
-    
-    private void openRemotePatcher(object sender, EventArgs e) {
+
+    private void openRemotePatcher(object sender, EventArgs e)
+    {
+        if (OSUtil.GetPlatform() == OSPlatform.OSX)
+        {
+            Gui.CreateOkDialog("Workaround", "UnionPatcher RemotePatcher requires a staging folder on macOS, please set this to the directory of the UnionPatcher.app!");
+            SelectFolderDialog dialog = new SelectFolderDialog();
+            if (dialog.ShowDialog(this) != DialogResult.Ok)
+            {
+                Gui.CreateOkDialog("Workaround", "Was not specified a staging folder, aborting!");
+                return;
+            }
+            Directory.SetCurrentDirectory(dialog.Directory);
+            if (!Directory.Exists("scetool"))
+            {
+                Gui.CreateOkDialog("Workaround", "Invalid folder, remember to set the folder to the directory of UnionPatcher.app!");
+                return;
+            } 
+        }
         RemotePatchForm rpForm = new RemotePatchForm();
         rpForm.Show();
         rpForm.Closed += OnSubFormClose;
