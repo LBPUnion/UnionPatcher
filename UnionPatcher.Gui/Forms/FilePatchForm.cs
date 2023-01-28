@@ -132,7 +132,15 @@ public class FilePatchForm : Form {
             Gui.CreateOkDialog("Error occurred while patching", "An error occured while patching:\n" + e);
             return;
         }
+        
+        // Purely for the dialog box to show the correct URL. Actual patcher has this too.
+        // If server URL contains a trailing slash, loop until it's gone.
+        string formattedUrl = this.serverUrl.Text;
+        while (formattedUrl.EndsWith('/'))
+        {
+            formattedUrl = formattedUrl.Remove(formattedUrl.Length - 1);
+        }
 
-        Gui.CreateOkDialog("Success!", "The Server URL has been patched to " + this.serverUrl.Text);
+        Gui.CreateOkDialog("Success!", "The Server URL has been patched to " + formattedUrl);
     }
 }

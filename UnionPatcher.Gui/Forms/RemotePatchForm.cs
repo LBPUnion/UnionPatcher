@@ -73,7 +73,15 @@ public class RemotePatchForm : Form
                 return;
             }
 
-            Gui.CreateOkDialog("Success!", $"The Server URL for {this.lbpGameID.Text} on the PS3 at {this.ps3LocalIP.Text} has been patched to {this.serverUrl.Text}");
+            // Purely for the dialog box to show the correct URL. Actual patcher has this too.
+            // If server URL contains a trailing slash, loop until it's gone.
+            string formattedUrl = this.serverUrl.Text;
+            while (formattedUrl.EndsWith('/'))
+            {
+                formattedUrl = formattedUrl.Remove(formattedUrl.Length - 1);
+            }
+            
+            Gui.CreateOkDialog("Success!", $"The Server URL for {this.lbpGameID.Text} on the PS3 at {this.ps3LocalIP.Text} has been patched to {formattedUrl}");
         };
 
         return control;
