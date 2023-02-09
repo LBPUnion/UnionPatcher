@@ -134,6 +134,6 @@ public class FilePatchForm : Form {
         }
         this.serverUrl.Text = this.serverUrl.Text.TrimEnd('/');
 
-        Gui.CreateOkDialog("Success!", "The Server URL has been patched to " + formattedUrl);
+        Gui.CreateOkDialog("Success!", "The Server URL has been patched to " + this.serverUrl.Text);
     }
 }
