@@ -21,8 +21,10 @@ public static class Patcher {
         
     public static byte[] PatchData(byte[] data, string serverUrl) {
         #region Validation
-        if(serverUrl.EndsWith('/')) {
-            throw new ArgumentException("URL must not contain a trailing slash!");
+        // If server URL contains a trailing slash, loop until it's gone.
+        while (serverUrl.EndsWith('/'))
+        {
+            serverUrl = serverUrl.Remove(serverUrl.Length - 1);
         }
 
         // Attempt to create URI to see if it's valid
