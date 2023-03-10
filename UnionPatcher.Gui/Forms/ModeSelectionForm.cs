@@ -29,7 +29,8 @@ public class ModeSelectionForm : Form {
 
     private void openRemotePatcher(object sender, EventArgs e)
     {
-        if (OSUtil.GetPlatform() == OSPlatform.OSX)
+        OSPlatform platform = OSUtil.GetPlatform();
+        if (platform == OSPlatform.OSX || platform == OSPlatform.Windows)
         {
             Gui.CreateOkDialog("Workaround", "UnionPatcher RemotePatcher requires a staging folder on macOS, please set this to the directory of the UnionPatcher app!");
             SelectFolderDialog dialog = new SelectFolderDialog();
