@@ -29,11 +29,10 @@ public class ModeSelectionForm : Form {
 
     private void openRemotePatcher(object sender, EventArgs e)
     {
-        OSPlatform platform = OSUtil.GetPlatform();
         if (!Directory.Exists("scetool"))
         {
             // This will always occur on macOS, so don't show this message for macOS users.
-            if (platform != OSPlatform.OSX) Gui.CreateOkDialog("Workaround Triggered", ".NET could not locate the required files, triggering workaround.");
+            if (OSUtil.GetPlatform() != OSPlatform.OSX) Gui.CreateOkDialog("Workaround Triggered", ".NET could not locate the required files, triggering workaround.");
 
             Gui.CreateOkDialog("Workaround", "UnionPatcher RemotePatcher requires a staging folder on macOS or in special circumstances on Windows, please set this to the directory of the UnionPatcher app or executable!");
             SelectFolderDialog dialog = new SelectFolderDialog();
