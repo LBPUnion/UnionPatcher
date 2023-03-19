@@ -24,25 +24,8 @@ public class FilePatchForm : Form {
         return control;
     }
 
-    public Control CreateHelpButton(int tabIndex = 0) {
-        Button control = new() {
-            Text = "Help",
-            TabIndex = tabIndex,
-        };
-
-        control.Click += delegate {
-            Process process = new();
-
-            process.StartInfo.UseShellExecute = true;
-            process.StartInfo.FileName = "https://www.lbpunion.com";
-            process.Start();
-        };
-
-        return control;
-    }
-
     public FilePatchForm() {
-        this.Title = "UnionPatcher - File Patch";
+        this.Title = "File Patch";
         this.ClientSize = new Size(500, -1);
         this.Content = new TableLayout {
             Spacing = new Size(5,5),
@@ -61,7 +44,7 @@ public class FilePatchForm : Form {
                     new TableCell(this.outputFileName = new FilePicker { TabIndex = 2, FileAction = FileAction.SaveFile,  Filters = { new FileFilter("ELF files", "*.elf", "*.ELF"), new FileFilter("All Files", "*.*") }})
                 ),
                 new TableRow(
-                    new TableCell(this.CreateHelpButton(4)),
+                    new TableCell(),
                     new TableCell(this.CreatePatchButton(3))
                 ),
             },
