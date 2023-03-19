@@ -14,7 +14,7 @@ public class RemotePatch
 {
     private readonly PS3MAPI _ps3Mapi = new();
 
-    private static Dictionary<string, string> GetUsersAsync(string ps3Ip, string user, string pass)
+    private static Dictionary<string, string> GetUsers(string ps3Ip, string user, string pass)
     {
         Console.WriteLine("Getting users...");
 
@@ -95,11 +95,11 @@ public class RemotePatch
         Console.WriteLine("\n===== END SCETOOL =====\n\n");
     }
 
-    public void RevertEBOOT(string ps3ip, string gameID, string serverURL, string user, string pass)
+    public Task RevertEBOOT(string ps3ip, string gameID, string serverURL, string user, string pass)
     {
         Console.WriteLine("Restoring original EBOOT.BIN from EBOOT.BIN.BAK");
 
-        Task.Run(() =>
+        return Task.Run(() =>
         {
             // Create a simple directory structure
             Directory.CreateDirectory(@"eboot");
@@ -118,15 +118,15 @@ public class RemotePatch
             {
                 throw new WebException("Could not find EBOOT.BIN.BAK on server.");
             }
-        }).Wait();
+        });
     }
 
-    public void PSNEBOOTRemotePatch(string ps3ip, string gameID, string serverURL, string user, string pass)
+    public Task PSNEBOOTRemotePatch(string ps3ip, string gameID, string serverURL, string user, string pass)
     {
         Console.WriteLine("Detected Digital Copy - Running in Full Mode");
 
         // Create a new thread so we don't occupy the UI thread.
-        Task.Run(() =>
+        return Task.Run(() =>
         {
             string idps = "";
             string contentID = "";
@@ -158,7 +158,7 @@ public class RemotePatch
             File.WriteAllBytes(@"data/idps", IDPSHelper.StringToByteArray(idps));
 
             // Scan the users on the system
-            users = GetUsersAsync(ps3ip, user, pass);
+            users = GetUsers(ps3ip, user, pass);
 
             // Scan the system for a license for the game
             foreach (string currentUser in users.Keys.ToArray())
@@ -216,12 +216,12 @@ public class RemotePatch
     }
 
     // Cut-down version that only patches disc copies
-    public void DiscEBOOTRemotePatch(string ps3ip, string gameID, string serverURL, string user, string pass)
+    public Task DiscEBOOTRemotePatch(string ps3ip, string gameID, string serverURL, string user, string pass)
     {
         Console.WriteLine("Detected Disc Copy - Running in Simplified Mode");
 
         // Create a new thread so we don't occupy the UI thread.
-        Task.Run(() =>
+        return Task.Run(() =>
         {
             // Create a simple directory structure
             Directory.CreateDirectory(@"eboot");

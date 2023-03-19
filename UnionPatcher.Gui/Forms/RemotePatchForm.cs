@@ -1,5 +1,6 @@
 using System;
 using System.Diagnostics;
+using System.Threading.Tasks;
 using Eto.Drawing;
 using Eto.Forms;
 
@@ -31,7 +32,7 @@ public class RemotePatchForm : Form
             Width = 200,
         };
 
-        control.Click += delegate {
+        control.Click += async delegate {
             if (string.IsNullOrEmpty(this.ps3LocalIP.Text))
             {
                 Gui.CreateOkDialog("Error", "No PS3 IP address specified!");
@@ -56,24 +57,33 @@ public class RemotePatchForm : Form
                 return;
             }
 
-            try
+            Task patchTask = null;
+
+            if (this.lbpGameID.Text.ToUpper().StartsWith('B'))
             {
-                if (this.lbpGameID.Text.ToUpper().StartsWith('B'))
-                {
-                    this.RemotePatcher.DiscEBOOTRemotePatch(this.ps3LocalIP.Text, this.lbpGameID.Text, this.serverUrl.Text, this.ftpUser.Text, this.ftpPass.Text);
-                }
-                else
-                {
-                    this.RemotePatcher.PSNEBOOTRemotePatch(this.ps3LocalIP.Text, this.lbpGameID.Text, this.serverUrl.Text, this.ftpUser.Text, this.ftpPass.Text);
-                }
+                patchTask = this.RemotePatcher.DiscEBOOTRemotePatch(this.ps3LocalIP.Text, this.lbpGameID.Text, this.serverUrl.Text, this.ftpUser.Text, this.ftpPass.Text);
+            }
+            else
+            {
+                patchTask = this.RemotePatcher.PSNEBOOTRemotePatch(this.ps3LocalIP.Text, this.lbpGameID.Text, this.serverUrl.Text, this.ftpUser.Text, this.ftpPass.Text);
+            }
+
+            // Something went horribly wrong, this should be impossible to encounter.
+            if (patchTask == null) return;
+
+            Control revertButton = this.FindChild("revert");
+            foreach (Control control in this.Controls) control.Enabled = false;
+            Gui.CreateOkDialog("Sit Tight!", $"We're patching your title for {this.ps3LocalIP.Text}! Maybe grab some tea?");
+            try 
+            {
+                await patchTask;
+                Gui.CreateOkDialog("Have fun!", $"The Server URL for {this.lbpGameID.Text} on the PS3 at {this.ps3LocalIP.Text} has been patched to {this.serverUrl.Text}");
             }
             catch (Exception e)
             {
-                Gui.CreateOkDialog("Error occurred while patching", "An error occured while patching:\n" + e);
-                return;
+                Gui.CreateOkDialog("Error occurred while patching", "An error occured while patching:\n" + e.Message);
             }
-
-            Gui.CreateOkDialog("Success!", $"The Server URL for {this.lbpGameID.Text} on the PS3 at {this.ps3LocalIP.Text} has been patched to {this.serverUrl.Text}");
+            foreach (Control control in this.Controls) control.Enabled = true;
         };
 
         return control;
@@ -85,10 +95,10 @@ public class RemotePatchForm : Form
         {
             Text = "Revert EBOOT",
             TabIndex = tabIndex,
-            Width = 200,
+            Width = 50,
         };
 
-        control.Click += delegate {
+        control.Click += async delegate {
             if (string.IsNullOrEmpty(this.ps3LocalIP.Text))
             {
                 Gui.CreateOkDialog("Form Error", "No PS3 IP address specified!");
@@ -100,37 +110,20 @@ public class RemotePatchForm : Form
                 Gui.CreateOkDialog("Form Error", "No game ID specified!");
                 return;
             }
-                
-            try
+
+            foreach (Control control in this.Controls) control.Enabled = false;
+            Task revertTask = this.RemotePatcher.RevertEBOOT(this.ps3LocalIP.Text, this.lbpGameID.Text, this.serverUrl.Text, this.ftpUser.Text, this.ftpPass.Text); 
+            
+            try 
             {
-                this.RemotePatcher.RevertEBOOT(this.ps3LocalIP.Text, this.lbpGameID.Text, this.serverUrl.Text, this.ftpUser.Text, this.ftpPass.Text);
+                await revertTask;
+                Gui.CreateOkDialog("Success!", $"UnionPatcher reverted your the EBOOT for {this.lbpGameID.Text} to stock. You're ready to patch your EBOOT again.");
             }
             catch (Exception e)
             {
-                Gui.CreateOkDialog("Error occurred while reverting EBOOT", "An error occured while patching:\n" + e);
-                return;
+                Gui.CreateOkDialog("Error occurred while reverting EBOOT", "An error occured while patching:\n" + e.Message);
             }
-
-            Gui.CreateOkDialog("Success!", $"UnionRemotePatcher reverted your the EBOOT for {this.lbpGameID.Text} to stock. You're ready to patch your EBOOT again.");
-        };
-
-        return control;
-    }
-
-    public Control CreateHelpButton(int tabIndex = 0)
-    {
-        Button control = new()
-        {
-            Text = "Help",
-            TabIndex = tabIndex,
-        };
-
-        control.Click += delegate {
-            Process process = new();
-
-            process.StartInfo.UseShellExecute = true;
-            process.StartInfo.FileName = "https://www.lbpunion.com";
-            process.Start();
+            foreach (Control control in this.Controls) control.Enabled = true;
         };
 
         return control;
@@ -138,7 +131,7 @@ public class RemotePatchForm : Form
         
     void InitializeComponent()
     {
-        this.Title = "UnionPatcher - Remote Patch";
+        this.Title = "Remote Patcher";
         this.MinimumSize = new Size(450, 200);
         this.Resizable = false;
         this.Padding = 10;
@@ -169,11 +162,8 @@ public class RemotePatchForm : Form
                     new TableCell(this.ftpPass = new TextBox { TabIndex = 4 })
                 ),
                 new TableRow(
-                    new TableCell(this.CreateHelpButton(7)),
-                    new TableRow(
-                        new TableCell(this.CreatePatchButton(5)),
-                        new TableCell(this.CreateRevertEBOOTButton(6))
-                    )
+                    new TableCell(this.CreateRevertEBOOTButton(6)),
+                    new TableCell(this.CreatePatchButton(5))
                 ),
             },
         };
