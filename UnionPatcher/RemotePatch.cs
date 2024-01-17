@@ -94,7 +94,7 @@ public class RemotePatch
         string workingDir = ".";
         if (OSUtil.GetPlatform() == OSPlatform.OSX)
         {
-            workingDir = "~/Documents/UnionPatcher";
+            workingDir = $"{Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments)}/UnionPatcher";
             Directory.CreateDirectory(workingDir);
         }
         
@@ -122,7 +122,7 @@ public class RemotePatch
         string workingDir = ".";
         if (OSUtil.GetPlatform() == OSPlatform.OSX)
         {
-            workingDir = "~/Documents/UnionPatcher";
+            workingDir = $"{Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments)}/UnionPatcher";
             Directory.CreateDirectory(workingDir);
         }
         
@@ -153,7 +153,7 @@ public class RemotePatch
         // Start getting idps and act.dat - these will help us decrypt a PSN eboot
         idps = PS3MAPI.PS3MAPIClientServer.PS3_GetIDPS();
 
-        File.WriteAllBytes($@"{workingDir}/data/idps", IDPSHelper.StringToByteArray(idps));
+        File.WriteAllBytes($@"data/idps", IDPSHelper.StringToByteArray(idps));
 
         // Scan the users on the system
         users = GetUsers(ps3ip, user, pass);
@@ -220,7 +220,7 @@ public class RemotePatch
         string workingDir = ".";
         if (OSUtil.GetPlatform() == OSPlatform.OSX)
         {
-            workingDir = "~/Documents/UnionPatcher";
+            workingDir = $"{Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments)}/UnionPatcher";
             Directory.CreateDirectory(workingDir);
         }
         
@@ -240,7 +240,7 @@ public class RemotePatch
                 $"ftp://{ps3ip}/dev_hdd0/game/{gameID}/USRDIR/EBOOT.BIN.BAK", user, pass);
 
         // Check for keys in the data directory
-        if (!File.Exists($"{workingDir}/data/keys"))
+        if (!File.Exists($"./data/keys"))
             throw new FileNotFoundException(
                 "UnionRemotePatcher cannot find the keys, ldr_curves, or vsh_curves files required to continue. Please make sure you have copies of these files placed in the data directory where you found the executable to run UnionRemotePatcher. Without them, we can't patch your game.");
 
