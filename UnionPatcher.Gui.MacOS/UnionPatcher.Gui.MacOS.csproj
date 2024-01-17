@@ -7,6 +7,8 @@
         <AssemblyName>LBPUnion.UnionPatcher.Gui.MacOS</AssemblyName>
         <RootNamespace>LBPUnion.UnionPatcher.Gui.MacOS</RootNamespace>
         <ApplicationIcon>Icon64.ico</ApplicationIcon>
+        <PublishSingleFile>true</PublishSingleFile>
+        <SelfContained>true</SelfContained>
     </PropertyGroup>
 
     <ItemGroup>
