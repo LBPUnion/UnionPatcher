@@ -38,6 +38,9 @@ namespace LBPUnion.UnionPatcher
             var path = Path.GetDirectoryName(Assembly.GetEntryAssembly()?.Location);
             if (string.IsNullOrEmpty(path))
                 path = Path.GetDirectoryName(Process.GetCurrentProcess().MainModule?.FileName);
+            if (string.IsNullOrEmpty(path))
+                path = AppContext.BaseDirectory;
+            
             return path;
         }
     }
