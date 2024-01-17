@@ -2,7 +2,7 @@
 
     <PropertyGroup>
         <OutputType>Exe</OutputType>
-        <TargetFramework>net6.0</TargetFramework>
+        <TargetFramework>net8.0</TargetFramework>
         <RuntimeIdentifiers>linux-x64</RuntimeIdentifiers>
         <AssemblyName>LBPUnion.UnionPatcher.Gui.Linux</AssemblyName>
         <RootNamespace>LBPUnion.UnionPatcher.Gui.Linux</RootNamespace>
