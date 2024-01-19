@@ -39,7 +39,6 @@ public class ModeSelectionForm : Form {
         {
             // This will always occur on macOS, so don't show this message for macOS users.
             if (OSUtil.GetPlatform() != OSPlatform.OSX) Gui.CreateOkDialog("Workaround Triggered", ".NET could not locate the required files, triggering workaround.");
-            
             Gui.CreateOkDialog("Workaround", "UnionPatcher RemotePatcher requires a staging folder on macOS or in special circumstances on Windows, please set this to the directory of the UnionPatcher app or executable!");
             SelectFolderDialog dialog = new SelectFolderDialog();
             if (dialog.ShowDialog(this) != DialogResult.Ok)
