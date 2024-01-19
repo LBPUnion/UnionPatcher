@@ -1,6 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
+using System.IO;
 using System.Linq;
+using System.Reflection;
 using System.Runtime.InteropServices;
 
 namespace LBPUnion.UnionPatcher
@@ -28,6 +31,17 @@ namespace LBPUnion.UnionPatcher
         {
             return EnumeratePlatforms().FirstOrDefault(p
                => RuntimeInformation.IsOSPlatform(p.Value.RuntimePlatform))?.Platform ?? default;
+        }
+
+        public static string GetExecutablePath()
+        {
+            var path = Path.GetDirectoryName(Assembly.GetEntryAssembly()?.Location);
+            if (string.IsNullOrEmpty(path))
+                path = Path.GetDirectoryName(Process.GetCurrentProcess().MainModule?.FileName);
+            if (string.IsNullOrEmpty(path))
+                path = AppContext.BaseDirectory;
+            
+            return path;
         }
     }
 }

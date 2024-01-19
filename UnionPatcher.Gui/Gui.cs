@@ -1,5 +1,4 @@
-﻿using Eto.Drawing;
-using Eto.Forms;
+﻿using Eto.Forms;
 using LBPUnion.UnionPatcher.Gui.Forms;
 
 namespace LBPUnion.UnionPatcher.Gui; 
@@ -10,7 +9,7 @@ public static class Gui {
     }
 
     public static void CreateOkDialog(string title, string errorMessage) {
-        MessageBox.Show(errorMessage, title, MessageBoxButtons.OK, MessageBoxType.Information);
+        MessageBox.Show(errorMessage, title, MessageBoxButtons.OK);
     }
     public static bool CreateConfirmationDialog(string title, string errorMessage) {
         DialogResult result = MessageBox.Show(errorMessage, title, MessageBoxButtons.YesNo, MessageBoxType.Question);

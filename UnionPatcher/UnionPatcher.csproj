@@ -3,7 +3,7 @@
         <AssemblyName>LBPUnion.UnionPatcher</AssemblyName>
         <RootNamespace>LBPUnion.UnionPatcher</RootNamespace>
         <Configurations>Debug;Release;Windows</Configurations>
-        <TargetFramework>net6.0</TargetFramework>
+        <TargetFramework>net8.0</TargetFramework>
         <Platforms>AnyCPU</Platforms>
         <ApplicationIcon>Icon64.ico</ApplicationIcon>
     </PropertyGroup>

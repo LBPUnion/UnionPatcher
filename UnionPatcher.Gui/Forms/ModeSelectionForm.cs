@@ -1,5 +1,8 @@
 using System;
 using System.IO;
+using System.Reflection;
+using System.Text;
+using Eto;
 using Eto.Drawing;
 using Eto.Forms;
 
@@ -29,11 +32,13 @@ public class ModeSelectionForm : Form {
 
     private void openRemotePatcher(object sender, EventArgs e)
     {
-        if (!Directory.Exists("scetool"))
+        // If we're on macOS then set the CWD to the app bundle MacOS folder, so that SCETool can be found.
+        if (OSUtil.GetPlatform() == OSPlatform.OSX) Directory.SetCurrentDirectory(OSUtil.GetExecutablePath());
+        
+        if (!Directory.Exists($"{OSUtil.GetExecutablePath()}/scetool"))
         {
             // This will always occur on macOS, so don't show this message for macOS users.
             if (OSUtil.GetPlatform() != OSPlatform.OSX) Gui.CreateOkDialog("Workaround Triggered", ".NET could not locate the required files, triggering workaround.");
-
             Gui.CreateOkDialog("Workaround", "UnionPatcher RemotePatcher requires a staging folder on macOS or in special circumstances on Windows, please set this to the directory of the UnionPatcher app or executable!");
             SelectFolderDialog dialog = new SelectFolderDialog();
             if (dialog.ShowDialog(this) != DialogResult.Ok)
