@@ -132,6 +132,7 @@ public class FilePatchForm : Form {
             Gui.CreateOkDialog("Error occurred while patching", "An error occured while patching:\n" + e);
             return;
         }
+        this.serverUrl.Text = this.serverUrl.Text.TrimEnd('/');
 
         Gui.CreateOkDialog("Success!", "The Server URL has been patched to " + this.serverUrl.Text);
     }
